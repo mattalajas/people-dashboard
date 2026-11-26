@@ -32,10 +32,10 @@ Tickets 2 and 3 can both start once ticket 1 is done. Ticket 5 waits for ticket 
 
 **What to build:** Platform is a **flag**, so its **AI summary** is on the card. Infra, a closed team of 6, shows its histogram and **person lines**, is not a **flag**, and has no **AI summary**. A **spread** at exactly 40% Exceeding or Exceptional is not a **flag**.
 
-- [ ] Platform shows a **flag** and its **AI summary**
-- [ ] Infra shows its histogram and **person lines**, and shows neither a **flag** nor an **AI summary**
-- [ ] A **spread** with exactly 40% of its **ratings** at Exceeding or Exceptional is not a **flag**
-- [ ] A **spread** with more than 40% of its **ratings** at Exceeding or Exceptional is a **flag**
+- [x] Platform shows a **flag** and its **AI summary**
+- [x] Infra shows its histogram and **person lines**, and shows neither a **flag** nor an **AI summary**
+- [x] A **spread** with exactly 40% of its **ratings** at Exceeding or Exceptional is not a **flag**
+- [x] A **spread** with more than 40% of its **ratings** at Exceeding or Exceptional is a **flag**
 
 ## 4. Hidden spread
 
@@ -43,9 +43,9 @@ Tickets 2 and 3 can both start once ticket 1 is done. Ticket 5 waits for ticket 
 
 **What to build:** Design (3) and Research (3) are shown like any other **group**: name, closed session, and **person lines**. Design is a **flag** and shows its **AI summary**. Research is not. Neither draws a histogram.
 
-- [ ] Design shows its name, a closed session, its **person lines**, a **flag**, and its **AI summary**
-- [ ] Research shows its name, a closed session, and its **person lines**, and shows neither a **flag** nor an **AI summary**
-- [ ] Design and Research draw no histogram
+- [x] Design shows its name, a closed session, its **person lines**, a **flag**, and its **AI summary**
+- [x] Research shows its name, a closed session, and its **person lines**, and shows neither a **flag** nor an **AI summary**
+- [x] Design and Research draw no histogram
 
 ## 5. Rollup into the open department
 

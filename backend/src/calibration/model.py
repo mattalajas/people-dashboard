@@ -55,3 +55,4 @@ class Group:
     session: SessionState
     people: tuple[Person, ...] = ()
     children: tuple[Group, ...] = ()
+    ai_summary: str | None = None

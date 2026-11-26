@@ -48,6 +48,13 @@ function GroupSection({ group, title: Title, selectedId, onSelect }: GroupSectio
           {group.session === "open" ? "Open" : "Closed"}
         </p>
       </div>
+      {group.flagged ? <p className="flag">Flagged</p> : null}
+      {group.aiSummary ? (
+        <section className="ai-summary" aria-label={`${group.name} AI summary`}>
+          <h3>AI summary</h3>
+          <p>{group.aiSummary}</p>
+        </section>
+      ) : null}
       {group.spread ? <Spread name={group.name} bands={group.spread} /> : null}
       {group.personLines.length > 0 ? (
         <ul className="person-lines" aria-label={`${group.name} person lines`}>

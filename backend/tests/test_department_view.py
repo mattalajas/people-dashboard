@@ -4,19 +4,27 @@ import urllib.error
 import urllib.request
 
 from calibration.api import serve
-from calibration.fixture import engineering_cycle
+from calibration.store import engineering_cycle
 from calibration.model import Band, Group, Person, SelfReview, SessionState
 from calibration.view import department_view_json
 
 
-def test_engineering_is_open_and_draws_no_histogram() -> None:
+def test_engineering_is_open_and_has_no_person_lines() -> None:
     view = department_view_json(engineering_cycle())
     department = view["department"]
 
     assert department["name"] == "Engineering"
     assert department["session"] == "open"
-    assert department["spread"] is None
     assert department["personLines"] == []
+    assert department["flagged"] is False
+    assert department["aiSummary"] is None
+    assert department["spread"] == [
+        {"band": "Below", "count": 1},
+        {"band": "Developing", "count": 3},
+        {"band": "Strong", "count": 4},
+        {"band": "Exceeding", "count": 3},
+        {"band": "Exceptional", "count": 1},
+    ]
 
 
 def test_platform_histogram_counts_both_ratings_for_eight_people() -> None:
@@ -28,8 +36,8 @@ def test_platform_histogram_counts_both_ratings_for_eight_people() -> None:
     assert platform["spread"] == [
         {"band": "Below", "count": 2},
         {"band": "Developing", "count": 3},
-        {"band": "Strong", "count": 6},
-        {"band": "Exceeding", "count": 3},
+        {"band": "Strong", "count": 4},
+        {"band": "Exceeding", "count": 5},
         {"band": "Exceptional", "count": 2},
     ]
     assert len(platform["personLines"]) == 8
@@ -113,6 +121,125 @@ def test_api_serves_the_department_and_refuses_writes() -> None:
     finally:
         server.shutdown()
         thread.join(timeout=2)
+
+
+def test_platform_is_flagged_and_infra_is_not() -> None:
+    view = department_view_json(engineering_cycle())
+    by_name = {group["name"]: group for group in view["groups"]}
+
+    platform = by_name["Platform"]
+    infra = by_name["Infra"]
+    assert platform["flagged"] is True
+    assert platform["aiSummary"] == (
+        "More than 40% of the ratings are Exceeding or Exceptional. "
+        "The written evidence cites setting the technical direction, "
+        "redefining the platform approach, and leading the incident response."
+    )
+    assert infra["flagged"] is False
+    assert infra["aiSummary"] is None
+    assert infra["spread"] == [
+        {"band": "Below", "count": 0},
+        {"band": "Developing", "count": 4},
+        {"band": "Strong", "count": 6},
+        {"band": "Exceeding", "count": 2},
+        {"band": "Exceptional", "count": 0},
+    ]
+    assert len(infra["personLines"]) == 6
+    assert "name" not in infra["personLines"][0]
+
+
+def test_hidden_groups_stay_visible_and_only_design_is_flagged() -> None:
+    view = department_view_json(engineering_cycle())
+    by_name = {group["name"]: group for group in view["groups"]}
+    design = by_name["Design"]
+    research = by_name["Research"]
+
+    assert design["session"] == "closed"
+    assert design["spread"] is None
+    assert design["flagged"] is True
+    assert len(design["personLines"]) == 3
+    assert design["aiSummary"] == (
+        "More than 40% of the ratings are Exceeding or Exceptional. "
+        "The written evidence cites raising the visual bar and holding the critique standard."
+    )
+    assert research["session"] == "closed"
+    assert research["spread"] is None
+    assert research["flagged"] is False
+    assert research["aiSummary"] is None
+    assert len(research["personLines"]) == 3
+    assert "name" not in research["personLines"][0]
+
+
+def test_exactly_forty_percent_is_not_a_flag_and_more_than_forty_percent_is() -> None:
+    even = _rated(
+        "even",
+        (
+            (Band.EXCEEDING, Band.EXCEEDING),
+            (Band.EXCEPTIONAL, Band.EXCEPTIONAL),
+            (Band.STRONG, Band.STRONG),
+            (Band.STRONG, Band.DEVELOPING),
+            (Band.DEVELOPING, Band.BELOW),
+        ),
+    )
+    over = _rated(
+        "over",
+        (
+            (Band.EXCEEDING, Band.EXCEEDING),
+            (Band.EXCEPTIONAL, Band.EXCEPTIONAL),
+            (Band.EXCEEDING, Band.STRONG),
+            (Band.STRONG, Band.DEVELOPING),
+            (Band.DEVELOPING, Band.BELOW),
+        ),
+    )
+
+    even_view = department_view_json(
+        Group(
+            name="Engineering",
+            session=SessionState.OPEN,
+            children=(
+                Group(
+                    name="Boundary",
+                    session=SessionState.CLOSED,
+                    people=even,
+                    ai_summary="This text does not decide the flag.",
+                ),
+            ),
+        )
+    )
+    over_view = department_view_json(
+        Group(
+            name="Engineering",
+            session=SessionState.OPEN,
+            children=(
+                Group(
+                    name="Boundary",
+                    session=SessionState.CLOSED,
+                    people=over,
+                    ai_summary="Too many ratings sit at the top of the scale.",
+                ),
+            ),
+        )
+    )
+
+    assert even_view["groups"][0]["spread"] is not None
+    assert even_view["groups"][0]["flagged"] is False
+    assert even_view["groups"][0]["aiSummary"] is None
+    assert over_view["groups"][0]["flagged"] is True
+    assert over_view["groups"][0]["aiSummary"] == "Too many ratings sit at the top of the scale."
+
+
+def _rated(prefix: str, pairs: tuple[tuple[Band, Band], ...]) -> tuple[Person, ...]:
+    return tuple(
+        Person(
+            id=f"{prefix}-{index}",
+            craft_rating=craft,
+            culture_rating=culture,
+            craft_justification="Craft note",
+            culture_justification="Culture note",
+            self_review=SelfReview(craft="Own craft", culture="Own culture", whats_next="Next"),
+        )
+        for index, (craft, culture) in enumerate(pairs)
+    )
 
 
 def _people(prefix: str, count: int) -> tuple[Person, ...]:

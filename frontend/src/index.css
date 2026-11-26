@@ -74,6 +74,27 @@ body {
   color: #6d645b;
 }
 
+.flag {
+  margin: 0.85rem 0 0;
+  color: #8a3b12;
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.ai-summary {
+  margin-top: 0.75rem;
+}
+
+.ai-summary h3 {
+  margin: 0 0 0.35rem;
+  font-size: 0.95rem;
+}
+
+.ai-summary p {
+  margin: 0;
+}
+
 .spread {
   list-style: none;
   margin: 1rem 0 0;

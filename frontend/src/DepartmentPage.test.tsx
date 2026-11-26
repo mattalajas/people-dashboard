@@ -32,7 +32,11 @@ describe("department page", () => {
     const engineering = screen.getByRole("region", { name: "Engineering" });
     expect(within(engineering).getByRole("heading", { name: "Engineering" })).toBeInTheDocument();
     expect(within(engineering).getByText("Open")).toBeInTheDocument();
-    expect(within(engineering).queryByRole("list", { name: "Engineering spread" })).not.toBeInTheDocument();
+    expect(within(engineering).queryByText("Flagged")).not.toBeInTheDocument();
+    expect(within(engineering).queryByRole("region", { name: "Engineering AI summary" })).not.toBeInTheDocument();
+    expect(within(engineering).queryByRole("list", { name: "Engineering person lines" })).not.toBeInTheDocument();
+    const engineeringSpread = within(engineering).getByRole("list", { name: "Engineering spread" });
+    expect(within(engineeringSpread).getByText("Below").parentElement).toHaveTextContent("1");
 
     const platform = screen.getByRole("region", { name: "Platform" });
     expect(within(platform).getByRole("heading", { name: "Platform" })).toBeInTheDocument();
@@ -50,8 +54,8 @@ describe("department page", () => {
     expect(bands.map((band) => [within(band).getByText(/^(Below|Developing|Strong|Exceeding|Exceptional)$/).textContent, within(band).getByText(/^\d+$/).textContent])).toEqual([
       ["Below", "2"],
       ["Developing", "3"],
-      ["Strong", "6"],
-      ["Exceeding", "3"],
+      ["Strong", "4"],
+      ["Exceeding", "5"],
       ["Exceptional", "2"],
     ]);
   });
@@ -59,7 +63,8 @@ describe("department page", () => {
   it("shows eight unnamed person lines with both ratings, both justifications, and the self review", () => {
     renderPage();
 
-    const lines = screen.getAllByRole("article", { name: "Person line" });
+    const platform = screen.getByRole("region", { name: "Platform" });
+    const lines = within(platform).getAllByRole("article", { name: "Person line" });
     expect(lines).toHaveLength(8);
 
     const line = personLine("Took on the rollout");
@@ -117,6 +122,49 @@ describe("department page", () => {
     expect(within(emptyHistory).queryByRole("article")).not.toBeInTheDocument();
     expect(screen.queryByText("Scope grew")).not.toBeInTheDocument();
     expect(screen.queryByText("Steadier collaboration")).not.toBeInTheDocument();
+  });
+
+  it("shows Platform flagged with an AI summary, and Infra with neither", () => {
+    renderPage();
+
+    const platform = screen.getByRole("region", { name: "Platform" });
+    expect(within(platform).getByText("Flagged")).toBeInTheDocument();
+    expect(within(platform).getByRole("region", { name: "Platform AI summary" })).toHaveTextContent(
+      "setting the technical direction",
+    );
+
+    const infra = screen.getByRole("region", { name: "Infra" });
+    expect(within(infra).getByText("Closed")).toBeInTheDocument();
+    expect(within(infra).getByRole("list", { name: "Infra spread" })).toBeInTheDocument();
+    expect(within(infra).getAllByRole("article", { name: "Person line" })).toHaveLength(6);
+    expect(within(infra).queryByText("Flagged")).not.toBeInTheDocument();
+    expect(within(infra).queryByRole("region", { name: "Infra AI summary" })).not.toBeInTheDocument();
+    expect(within(infra).getByText("Kept the build green")).toBeInTheDocument();
+  });
+
+  it("shows Design and Research without histograms, and only Design is flagged", () => {
+    renderPage();
+
+    const design = screen.getByRole("region", { name: "Design" });
+    expect(within(design).getByRole("heading", { name: "Design" })).toBeInTheDocument();
+    expect(within(design).getByText("Closed")).toBeInTheDocument();
+    expect(within(design).queryByRole("list", { name: "Design spread" })).not.toBeInTheDocument();
+    expect(within(design).getByText("Flagged")).toBeInTheDocument();
+    expect(within(design).getByRole("region", { name: "Design AI summary" })).toHaveTextContent(
+      "raising the visual bar",
+    );
+    expect(within(design).getAllByRole("article", { name: "Person line" })).toHaveLength(3);
+    expect(within(design).getByText("Raised the visual bar")).toBeInTheDocument();
+    expect(screen.queryByText("design-1")).not.toBeInTheDocument();
+
+    const research = screen.getByRole("region", { name: "Research" });
+    expect(within(research).getByRole("heading", { name: "Research" })).toBeInTheDocument();
+    expect(within(research).getByText("Closed")).toBeInTheDocument();
+    expect(within(research).queryByRole("list", { name: "Research spread" })).not.toBeInTheDocument();
+    expect(within(research).queryByText("Flagged")).not.toBeInTheDocument();
+    expect(within(research).queryByRole("region", { name: "Research AI summary" })).not.toBeInTheDocument();
+    expect(within(research).getAllByRole("article", { name: "Person line" })).toHaveLength(3);
+    expect(within(research).getByText("Found the failed assumption")).toBeInTheDocument();
   });
 
   it("loads the department from the api", async () => {

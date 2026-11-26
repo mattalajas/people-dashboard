@@ -5,6 +5,7 @@ from typing import Any
 from calibration.model import Band, Group, Person
 
 MINIMUM_SHOWN_SPREAD = 5
+_HIGH_BANDS = frozenset({Band.EXCEEDING, Band.EXCEPTIONAL})
 
 
 def spread_people(group: Group) -> tuple[Person, ...]:
@@ -24,12 +25,28 @@ def department_view_json(department: Group) -> dict[str, Any]:
 
 
 def _group_json(group: Group) -> dict[str, Any]:
+    people = spread_people(group)
+    flagged = _flagged(people)
     return {
         "name": group.name,
         "session": group.session.value,
-        "spread": _spread_json(spread_people(group)),
+        "spread": _spread_json(people),
+        "flagged": flagged,
+        "aiSummary": group.ai_summary if flagged else None,
         "personLines": [_person_line_json(person) for person in group.people],
     }
+
+
+def _flagged(people: tuple[Person, ...]) -> bool:
+    if not people:
+        return False
+    high = 0
+    for person in people:
+        if person.craft_rating in _HIGH_BANDS:
+            high += 1
+        if person.culture_rating in _HIGH_BANDS:
+            high += 1
+    return high * 5 > len(people) * 4
 
 
 def _spread_json(people: tuple[Person, ...]) -> list[dict[str, Any]] | None:

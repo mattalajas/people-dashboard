@@ -1,0 +1,258 @@
+[
+  {
+    "_id": "manager-review-person-1",
+    "user_id": "person-1",
+    "manager_id": "manager-platform",
+    "Craft_score": "Strong",
+    "Culture_score": "Strong",
+    "Craft_score_justification": "Took on the rollout",
+    "Culture_score_justification": "Steadied the team rituals",
+    "Locked": true,
+    "Timestamps": "2026-03-01T09:00:00Z",
+    "Calibration_history": [
+      {
+        "Craft_score": "Developing",
+        "Culture_score": "Strong",
+        "Justification": "Scope grew",
+        "Timestamps": "2026-03-01T08:00:00Z",
+        "Session": "Platform"
+      }
+    ]
+  },
+  {
+    "_id": "manager-review-person-2",
+    "user_id": "person-2",
+    "manager_id": "manager-platform",
+    "Craft_score": "Exceeding",
+    "Culture_score": "Strong",
+    "Craft_score_justification": "Set the technical direction",
+    "Culture_score_justification": "Made reviews useful",
+    "Locked": true,
+    "Timestamps": "2026-03-01T09:00:00Z",
+    "Calibration_history": [
+      {
+        "Craft_score": "Exceeding",
+        "Culture_score": "Below",
+        "Justification": "Steadier collaboration",
+        "Timestamps": "2026-03-01T08:00:00Z",
+        "Session": "Platform"
+      }
+    ]
+  },
+  {
+    "_id": "manager-review-person-3",
+    "user_id": "person-3",
+    "manager_id": "manager-platform",
+    "Craft_score": "Below",
+    "Culture_score": "Developing",
+    "Craft_score_justification": "Missed the design bar",
+    "Culture_score_justification": "Still learning how to disagree",
+    "Locked": true,
+    "Timestamps": "2026-03-01T09:00:00Z",
+    "Calibration_history": []
+  },
+  {
+    "_id": "manager-review-person-4",
+    "user_id": "person-4",
+    "manager_id": "manager-platform",
+    "Craft_score": "Developing",
+    "Culture_score": "Developing",
+    "Craft_score_justification": "Delivered with guidance",
+    "Culture_score_justification": "Warm, still inconsistent",
+    "Locked": true,
+    "Timestamps": "2026-03-01T09:00:00Z",
+    "Calibration_history": []
+  },
+  {
+    "_id": "manager-review-person-5",
+    "user_id": "person-5",
+    "manager_id": "manager-platform",
+    "Craft_score": "Exceeding",
+    "Culture_score": "Exceeding",
+    "Craft_score_justification": "Shipped the migration",
+    "Culture_score_justification": "Raised the critique quality",
+    "Locked": true,
+    "Timestamps": "2026-03-01T09:00:00Z",
+    "Calibration_history": []
+  },
+  {
+    "_id": "manager-review-person-6",
+    "user_id": "person-6",
+    "manager_id": "manager-platform",
+    "Craft_score": "Exceptional",
+    "Culture_score": "Exceeding",
+    "Craft_score_justification": "Redefined the platform approach",
+    "Culture_score_justification": "Reliable partner to other teams",
+    "Locked": true,
+    "Timestamps": "2026-03-01T09:00:00Z",
+    "Calibration_history": []
+  },
+  {
+    "_id": "manager-review-person-7",
+    "user_id": "person-7",
+    "manager_id": "manager-platform",
+    "Craft_score": "Strong",
+    "Culture_score": "Below",
+    "Craft_score_justification": "Solid feature work",
+    "Culture_score_justification": "Avoided hard conversations",
+    "Locked": true,
+    "Timestamps": "2026-03-01T09:00:00Z",
+    "Calibration_history": []
+  },
+  {
+    "_id": "manager-review-person-8",
+    "user_id": "person-8",
+    "manager_id": "manager-platform",
+    "Craft_score": "Exceeding",
+    "Culture_score": "Exceptional",
+    "Craft_score_justification": "Led the incident response",
+    "Culture_score_justification": "Reset how the team gives feedback",
+    "Locked": true,
+    "Timestamps": "2026-03-01T09:00:00Z",
+    "Calibration_history": []
+  },
+  {
+    "_id": "manager-review-infra-1",
+    "user_id": "infra-1",
+    "manager_id": "manager-infra",
+    "Craft_score": "Strong",
+    "Culture_score": "Strong",
+    "Craft_score_justification": "Kept the build green",
+    "Culture_score_justification": "Answered the on-call pages",
+    "Locked": true,
+    "Timestamps": "2026-03-01T09:00:00Z",
+    "Calibration_history": []
+  },
+  {
+    "_id": "manager-review-infra-2",
+    "user_id": "infra-2",
+    "manager_id": "manager-infra",
+    "Craft_score": "Strong",
+    "Culture_score": "Developing",
+    "Craft_score_justification": "Documented the deploy path",
+    "Culture_score_justification": "Shared the on-call load",
+    "Locked": true,
+    "Timestamps": "2026-03-01T09:00:00Z",
+    "Calibration_history": []
+  },
+  {
+    "_id": "manager-review-infra-3",
+    "user_id": "infra-3",
+    "manager_id": "manager-infra",
+    "Craft_score": "Developing",
+    "Culture_score": "Strong",
+    "Craft_score_justification": "Mapped the service owners",
+    "Culture_score_justification": "Brought incidents to a close",
+    "Locked": true,
+    "Timestamps": "2026-03-01T09:00:00Z",
+    "Calibration_history": []
+  },
+  {
+    "_id": "manager-review-infra-4",
+    "user_id": "infra-4",
+    "manager_id": "manager-infra",
+    "Craft_score": "Exceeding",
+    "Culture_score": "Strong",
+    "Craft_score_justification": "Shortened the incident timeline",
+    "Culture_score_justification": "Stayed calm in the channel",
+    "Locked": true,
+    "Timestamps": "2026-03-01T09:00:00Z",
+    "Calibration_history": []
+  },
+  {
+    "_id": "manager-review-infra-5",
+    "user_id": "infra-5",
+    "manager_id": "manager-infra",
+    "Craft_score": "Strong",
+    "Culture_score": "Exceeding",
+    "Craft_score_justification": "Paired across the services",
+    "Culture_score_justification": "Made the handoff clear",
+    "Locked": true,
+    "Timestamps": "2026-03-01T09:00:00Z",
+    "Calibration_history": []
+  },
+  {
+    "_id": "manager-review-infra-6",
+    "user_id": "infra-6",
+    "manager_id": "manager-infra",
+    "Craft_score": "Developing",
+    "Culture_score": "Developing",
+    "Craft_score_justification": "Clarified the ownership map",
+    "Culture_score_justification": "Asked for help sooner",
+    "Locked": true,
+    "Timestamps": "2026-03-01T09:00:00Z",
+    "Calibration_history": []
+  },
+  {
+    "_id": "manager-review-design-1",
+    "user_id": "design-1",
+    "manager_id": "manager-design",
+    "Craft_score": "Exceeding",
+    "Culture_score": "Exceeding",
+    "Craft_score_justification": "Raised the visual bar",
+    "Culture_score_justification": "Held the critique standard",
+    "Locked": true,
+    "Timestamps": "2026-03-01T09:00:00Z",
+    "Calibration_history": []
+  },
+  {
+    "_id": "manager-review-design-2",
+    "user_id": "design-2",
+    "manager_id": "manager-design",
+    "Craft_score": "Exceptional",
+    "Culture_score": "Strong",
+    "Craft_score_justification": "Redrew the core flows",
+    "Culture_score_justification": "Set the tone of the critique",
+    "Locked": true,
+    "Timestamps": "2026-03-01T09:00:00Z",
+    "Calibration_history": []
+  },
+  {
+    "_id": "manager-review-design-3",
+    "user_id": "design-3",
+    "manager_id": "manager-design",
+    "Craft_score": "Strong",
+    "Culture_score": "Developing",
+    "Craft_score_justification": "Shipped the component kit",
+    "Culture_score_justification": "Still learning to invite dissent",
+    "Locked": true,
+    "Timestamps": "2026-03-01T09:00:00Z",
+    "Calibration_history": []
+  },
+  {
+    "_id": "manager-review-research-1",
+    "user_id": "research-1",
+    "manager_id": "manager-research",
+    "Craft_score": "Exceeding",
+    "Culture_score": "Strong",
+    "Craft_score_justification": "Found the failed assumption",
+    "Culture_score_justification": "Wrote up the disagreement",
+    "Locked": true,
+    "Timestamps": "2026-03-01T09:00:00Z",
+    "Calibration_history": []
+  },
+  {
+    "_id": "manager-review-research-2",
+    "user_id": "research-2",
+    "manager_id": "manager-research",
+    "Craft_score": "Developing",
+    "Culture_score": "Developing",
+    "Craft_score_justification": "Wrote the study notes",
+    "Culture_score_justification": "Kept the interviews kind",
+    "Locked": true,
+    "Timestamps": "2026-03-01T09:00:00Z",
+    "Calibration_history": []
+  },
+  {
+    "_id": "manager-review-research-3",
+    "user_id": "research-3",
+    "manager_id": "manager-research",
+    "Craft_score": "Strong",
+    "Culture_score": "Below",
+    "Craft_score_justification": "Repeated the measurement",
+    "Culture_score_justification": "Skipped the hard question",
+    "Locked": true,
+    "Timestamps": "2026-03-01T09:00:00Z",
+    "Calibration_history": []
+  }
+]

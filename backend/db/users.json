@@ -1,0 +1,152 @@
+[
+  {
+    "_id": "manager-engineering",
+    "manager_id": null,
+    "Team": null,
+    "Department": "Engineering"
+  },
+  {
+    "_id": "manager-platform",
+    "manager_id": "manager-engineering",
+    "Team": "Platform",
+    "Department": "Engineering"
+  },
+  {
+    "_id": "person-1",
+    "manager_id": "manager-platform",
+    "Team": "Platform",
+    "Department": "Engineering"
+  },
+  {
+    "_id": "person-2",
+    "manager_id": "manager-platform",
+    "Team": "Platform",
+    "Department": "Engineering"
+  },
+  {
+    "_id": "person-3",
+    "manager_id": "manager-platform",
+    "Team": "Platform",
+    "Department": "Engineering"
+  },
+  {
+    "_id": "person-4",
+    "manager_id": "manager-platform",
+    "Team": "Platform",
+    "Department": "Engineering"
+  },
+  {
+    "_id": "person-5",
+    "manager_id": "manager-platform",
+    "Team": "Platform",
+    "Department": "Engineering"
+  },
+  {
+    "_id": "person-6",
+    "manager_id": "manager-platform",
+    "Team": "Platform",
+    "Department": "Engineering"
+  },
+  {
+    "_id": "person-7",
+    "manager_id": "manager-platform",
+    "Team": "Platform",
+    "Department": "Engineering"
+  },
+  {
+    "_id": "person-8",
+    "manager_id": "manager-platform",
+    "Team": "Platform",
+    "Department": "Engineering"
+  },
+  {
+    "_id": "manager-infra",
+    "manager_id": "manager-engineering",
+    "Team": "Infra",
+    "Department": "Engineering"
+  },
+  {
+    "_id": "infra-1",
+    "manager_id": "manager-infra",
+    "Team": "Infra",
+    "Department": "Engineering"
+  },
+  {
+    "_id": "infra-2",
+    "manager_id": "manager-infra",
+    "Team": "Infra",
+    "Department": "Engineering"
+  },
+  {
+    "_id": "infra-3",
+    "manager_id": "manager-infra",
+    "Team": "Infra",
+    "Department": "Engineering"
+  },
+  {
+    "_id": "infra-4",
+    "manager_id": "manager-infra",
+    "Team": "Infra",
+    "Department": "Engineering"
+  },
+  {
+    "_id": "infra-5",
+    "manager_id": "manager-infra",
+    "Team": "Infra",
+    "Department": "Engineering"
+  },
+  {
+    "_id": "infra-6",
+    "manager_id": "manager-infra",
+    "Team": "Infra",
+    "Department": "Engineering"
+  },
+  {
+    "_id": "manager-design",
+    "manager_id": "manager-engineering",
+    "Team": "Design",
+    "Department": "Engineering"
+  },
+  {
+    "_id": "design-1",
+    "manager_id": "manager-design",
+    "Team": "Design",
+    "Department": "Engineering"
+  },
+  {
+    "_id": "design-2",
+    "manager_id": "manager-design",
+    "Team": "Design",
+    "Department": "Engineering"
+  },
+  {
+    "_id": "design-3",
+    "manager_id": "manager-design",
+    "Team": "Design",
+    "Department": "Engineering"
+  },
+  {
+    "_id": "manager-research",
+    "manager_id": "manager-engineering",
+    "Team": "Research",
+    "Department": "Engineering"
+  },
+  {
+    "_id": "research-1",
+    "manager_id": "manager-research",
+    "Team": "Research",
+    "Department": "Engineering"
+  },
+  {
+    "_id": "research-2",
+    "manager_id": "manager-research",
+    "Team": "Research",
+    "Department": "Engineering"
+  },
+  {
+    "_id": "research-3",
+    "manager_id": "manager-research",
+    "Team": "Research",
+    "Department": "Engineering"
+  }
+]

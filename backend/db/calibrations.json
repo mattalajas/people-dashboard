@@ -1,0 +1,116 @@
+[
+  {
+    "_id": "calibration-engineering",
+    "manager_id": "manager-engineering",
+    "group_reviews": [],
+    "Ai_review": null
+  },
+  {
+    "_id": "calibration-platform",
+    "manager_id": "manager-platform",
+    "group_reviews": [
+      {
+        "User_review_id": "user-review-person-1",
+        "Manager_review_id": "manager-review-person-1"
+      },
+      {
+        "User_review_id": "user-review-person-2",
+        "Manager_review_id": "manager-review-person-2"
+      },
+      {
+        "User_review_id": "user-review-person-3",
+        "Manager_review_id": "manager-review-person-3"
+      },
+      {
+        "User_review_id": "user-review-person-4",
+        "Manager_review_id": "manager-review-person-4"
+      },
+      {
+        "User_review_id": "user-review-person-5",
+        "Manager_review_id": "manager-review-person-5"
+      },
+      {
+        "User_review_id": "user-review-person-6",
+        "Manager_review_id": "manager-review-person-6"
+      },
+      {
+        "User_review_id": "user-review-person-7",
+        "Manager_review_id": "manager-review-person-7"
+      },
+      {
+        "User_review_id": "user-review-person-8",
+        "Manager_review_id": "manager-review-person-8"
+      }
+    ],
+    "Ai_review": "More than 40% of the ratings are Exceeding or Exceptional. The written evidence cites setting the technical direction, redefining the platform approach, and leading the incident response."
+  },
+  {
+    "_id": "calibration-infra",
+    "manager_id": "manager-infra",
+    "group_reviews": [
+      {
+        "User_review_id": "user-review-infra-1",
+        "Manager_review_id": "manager-review-infra-1"
+      },
+      {
+        "User_review_id": "user-review-infra-2",
+        "Manager_review_id": "manager-review-infra-2"
+      },
+      {
+        "User_review_id": "user-review-infra-3",
+        "Manager_review_id": "manager-review-infra-3"
+      },
+      {
+        "User_review_id": "user-review-infra-4",
+        "Manager_review_id": "manager-review-infra-4"
+      },
+      {
+        "User_review_id": "user-review-infra-5",
+        "Manager_review_id": "manager-review-infra-5"
+      },
+      {
+        "User_review_id": "user-review-infra-6",
+        "Manager_review_id": "manager-review-infra-6"
+      }
+    ],
+    "Ai_review": null
+  },
+  {
+    "_id": "calibration-design",
+    "manager_id": "manager-design",
+    "group_reviews": [
+      {
+        "User_review_id": "user-review-design-1",
+        "Manager_review_id": "manager-review-design-1"
+      },
+      {
+        "User_review_id": "user-review-design-2",
+        "Manager_review_id": "manager-review-design-2"
+      },
+      {
+        "User_review_id": "user-review-design-3",
+        "Manager_review_id": "manager-review-design-3"
+      }
+    ],
+    "Ai_review": "More than 40% of the ratings are Exceeding or Exceptional. The written evidence cites raising the visual bar and holding the critique standard."
+  },
+  {
+    "_id": "calibration-research",
+    "manager_id": "manager-research",
+    "group_reviews": [
+      {
+        "User_review_id": "user-review-research-1",
+        "Manager_review_id": "manager-review-research-1"
+      },
+      {
+        "User_review_id": "user-review-research-2",
+        "Manager_review_id": "manager-review-research-2"
+      },
+      {
+        "User_review_id": "user-review-research-3",
+        "Manager_review_id": "manager-review-research-3"
+      }
+    ],
+    "Ai_review": null
+  }
+]

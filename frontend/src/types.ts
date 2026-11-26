@@ -43,6 +43,8 @@ export type GroupCard = {
   name: string;
   session: SessionState;
   spread: SpreadBand[] | null;
+  flagged: boolean;
+  aiSummary: string | null;
   personLines: PersonLine[];
 };
 

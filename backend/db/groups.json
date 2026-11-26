@@ -1,0 +1,66 @@
+[
+  {
+    "_id": "group-engineering",
+    "name": "Engineering",
+    "session": "open",
+    "parent_id": null,
+    "member_ids": [],
+    "manager_id": "manager-engineering"
+  },
+  {
+    "_id": "group-platform",
+    "name": "Platform",
+    "session": "closed",
+    "parent_id": "group-engineering",
+    "member_ids": [
+      "person-1",
+      "person-2",
+      "person-3",
+      "person-4",
+      "person-5",
+      "person-6",
+      "person-7",
+      "person-8"
+    ],
+    "manager_id": "manager-platform"
+  },
+  {
+    "_id": "group-infra",
+    "name": "Infra",
+    "session": "closed",
+    "parent_id": "group-engineering",
+    "manager_id": "manager-infra",
+    "member_ids": [
+      "infra-1",
+      "infra-2",
+      "infra-3",
+      "infra-4",
+      "infra-5",
+      "infra-6"
+    ]
+  },
+  {
+    "_id": "group-design",
+    "name": "Design",
+    "session": "closed",
+    "parent_id": "group-engineering",
+    "manager_id": "manager-design",
+    "member_ids": [
+      "design-1",
+      "design-2",
+      "design-3"
+    ]
+  },
+  {
+    "_id": "group-research",
+    "name": "Research",
+    "session": "closed",
+    "parent_id": "group-engineering",
+    "manager_id": "manager-research",
+    "member_ids": [
+      "research-1",
+      "research-2",
+      "research-3"
+    ]
+  }
+]

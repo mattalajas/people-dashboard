@@ -23,19 +23,43 @@ function line(
   };
 }
 
+const platformSummary =
+  "More than 40% of the ratings are Exceeding or Exceptional. The written evidence cites setting the technical direction, redefining the platform approach, and leading the incident response.";
+
+const designSummary =
+  "More than 40% of the ratings are Exceeding or Exceptional. The written evidence cites raising the visual bar and holding the critique standard.";
+
 const platformSpread: SpreadBand[] = [
   { band: "Below", count: 2 },
   { band: "Developing", count: 3 },
-  { band: "Strong", count: 6 },
-  { band: "Exceeding", count: 3 },
+  { band: "Strong", count: 4 },
+  { band: "Exceeding", count: 5 },
   { band: "Exceptional", count: 2 },
+];
+
+const infraSpread: SpreadBand[] = [
+  { band: "Below", count: 0 },
+  { band: "Developing", count: 4 },
+  { band: "Strong", count: 6 },
+  { band: "Exceeding", count: 2 },
+  { band: "Exceptional", count: 0 },
+];
+
+const engineeringSpread: SpreadBand[] = [
+  { band: "Below", count: 1 },
+  { band: "Developing", count: 3 },
+  { band: "Strong", count: 4 },
+  { band: "Exceeding", count: 3 },
+  { band: "Exceptional", count: 1 },
 ];
 
 export const departmentView: DepartmentView = {
   department: {
     name: "Engineering",
     session: "open",
-    spread: null,
+    spread: engineeringSpread,
+    flagged: false,
+    aiSummary: null,
     personLines: [],
   },
   groups: [
@@ -43,6 +67,8 @@ export const departmentView: DepartmentView = {
       name: "Platform",
       session: "closed",
       spread: platformSpread,
+      flagged: true,
+      aiSummary: platformSummary,
       personLines: [
         line(
           "person-1",
@@ -92,7 +118,7 @@ export const departmentView: DepartmentView = {
         ),
         line(
           "person-5",
-          "Strong",
+          "Exceeding",
           "Exceeding",
           "Shipped the migration",
           "Raised the critique quality",
@@ -100,7 +126,7 @@ export const departmentView: DepartmentView = {
         line(
           "person-6",
           "Exceptional",
-          "Strong",
+          "Exceeding",
           "Redefined the platform approach",
           "Reliable partner to other teams",
         ),
@@ -118,6 +144,45 @@ export const departmentView: DepartmentView = {
           "Led the incident response",
           "Reset how the team gives feedback",
         ),
+      ],
+    },
+    {
+      name: "Infra",
+      session: "closed",
+      spread: infraSpread,
+      flagged: false,
+      aiSummary: null,
+      personLines: [
+        line("infra-1", "Strong", "Strong", "Kept the build green", "Answered the on-call pages"),
+        line("infra-2", "Strong", "Developing", "Documented the deploy path", "Shared the on-call load"),
+        line("infra-3", "Developing", "Strong", "Mapped the service owners", "Brought incidents to a close"),
+        line("infra-4", "Exceeding", "Strong", "Shortened the incident timeline", "Stayed calm in the channel"),
+        line("infra-5", "Strong", "Exceeding", "Paired across the services", "Made the handoff clear"),
+        line("infra-6", "Developing", "Developing", "Clarified the ownership map", "Asked for help sooner"),
+      ],
+    },
+    {
+      name: "Design",
+      session: "closed",
+      spread: null,
+      flagged: true,
+      aiSummary: designSummary,
+      personLines: [
+        line("design-1", "Exceeding", "Exceeding", "Raised the visual bar", "Held the critique standard"),
+        line("design-2", "Exceptional", "Strong", "Redrew the core flows", "Set the tone of the critique"),
+        line("design-3", "Strong", "Developing", "Shipped the component kit", "Still learning to invite dissent"),
+      ],
+    },
+    {
+      name: "Research",
+      session: "closed",
+      spread: null,
+      flagged: false,
+      aiSummary: null,
+      personLines: [
+        line("research-1", "Exceeding", "Strong", "Found the failed assumption", "Wrote up the disagreement"),
+        line("research-2", "Developing", "Developing", "Wrote the study notes", "Kept the interviews kind"),
+        line("research-3", "Strong", "Below", "Repeated the measurement", "Skipped the hard question"),
       ],
     },
   ],
