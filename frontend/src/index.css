@@ -1,0 +1,194 @@
+:root {
+  color: #1c1915;
+  background: #f4f0e8;
+  font-family: "Avenir Next", "Segoe UI", sans-serif;
+  line-height: 1.45;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+.page {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 2.5rem 1.25rem 4rem;
+}
+
+.group-heading h1 {
+  margin: 0;
+  font-family: "Iowan Old Style", Palatino, Georgia, serif;
+  font-size: 2.5rem;
+  font-weight: 500;
+}
+
+.eyebrow {
+  margin: 0;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  color: #6d645b;
+}
+
+.groups {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1.75rem;
+}
+
+.group {
+  background: #fffdf8;
+  border: 1px solid #e4dccf;
+  border-radius: 16px;
+  padding: 1.25rem;
+}
+
+.group-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+}
+
+.group-heading h2 {
+  margin: 0;
+  font-size: 1.35rem;
+}
+
+.session {
+  margin: 0;
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.session.open {
+  color: #0f6b4c;
+}
+
+.session.closed {
+  color: #6d645b;
+}
+
+.spread {
+  list-style: none;
+  margin: 1rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 0.45rem;
+}
+
+.spread li {
+  display: grid;
+  grid-template-columns: 8.5rem 1fr 2rem;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.band {
+  font-size: 0.92rem;
+}
+
+.bar-track {
+  height: 0.55rem;
+  background: #efe8dc;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.bar {
+  display: block;
+  height: 100%;
+  background: #1f4d3a;
+  border-radius: 999px;
+}
+
+.count {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.person-lines {
+  list-style: none;
+  margin: 1.25rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.person-line {
+  border-top: 1px solid #e4dccf;
+  padding-top: 0.9rem;
+}
+
+.person-line dl,
+.self-review dl {
+  display: grid;
+  gap: 0.45rem;
+  margin: 0;
+}
+
+.person-line dl > div,
+.self-review dl > div {
+  display: grid;
+  grid-template-columns: 11rem 1fr;
+  gap: 0.75rem;
+}
+
+dt {
+  color: #6d645b;
+  font-size: 0.85rem;
+}
+
+dd {
+  margin: 0;
+}
+
+.self-review {
+  margin-top: 0.8rem;
+}
+
+.self-review h3 {
+  margin: 0 0 0.4rem;
+  font-size: 0.95rem;
+}
+
+.person-line button {
+  margin-top: 0.85rem;
+  border: 1px solid #1f4d3a;
+  background: transparent;
+  color: #1f4d3a;
+  border-radius: 999px;
+  padding: 0.35rem 0.8rem;
+  font: inherit;
+  cursor: pointer;
+}
+
+.rating-changes {
+  margin-top: 0.75rem;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.rating-changes article {
+  background: #f6f1e8;
+  border-radius: 12px;
+  padding: 0.75rem 0.9rem;
+}
+
+.rating-changes p {
+  margin: 0.1rem 0;
+}
+
+@media (max-width: 640px) {
+  .person-line dl > div,
+  .self-review dl > div,
+  .rating-changes dl > div {
+    grid-template-columns: 1fr;
+    gap: 0.15rem;
+  }
+}
