@@ -31,22 +31,35 @@ def _group_json(group: Group) -> dict[str, Any]:
         "name": group.name,
         "session": group.session.value,
         "spread": _spread_json(people),
+        "exceedingShare": _exceeding_share(people),
         "flagged": flagged,
         "aiSummary": group.ai_summary if flagged else None,
+        "managerName": group.manager_name,
         "personLines": [_person_line_json(person) for person in group.people],
     }
 
 
-def _flagged(people: tuple[Person, ...]) -> bool:
-    if not people:
-        return False
+def _high_marks(people: tuple[Person, ...]) -> int:
     high = 0
     for person in people:
         if person.craft_rating in _HIGH_BANDS:
             high += 1
         if person.culture_rating in _HIGH_BANDS:
             high += 1
-    return high * 5 > len(people) * 4
+    return high
+
+
+def _flagged(people: tuple[Person, ...]) -> bool:
+    if not people:
+        return False
+    return _high_marks(people) * 5 > len(people) * 4
+
+
+def _exceeding_share(people: tuple[Person, ...]) -> int | None:
+    if not people:
+        return None
+    total = len(people) * 2
+    return (_high_marks(people) * 100 + total // 2) // total
 
 
 def _spread_json(people: tuple[Person, ...]) -> list[dict[str, Any]] | None:
@@ -73,11 +86,12 @@ def _person_line_json(person: Person) -> dict[str, Any]:
         },
         "ratingChanges": [
             {
-                "axis": change.axis.value,
-                "previous": change.previous.value,
-                "new": change.new.value,
+                "previousCraft": change.previous_craft.value,
+                "previousCulture": change.previous_culture.value,
                 "reason": change.reason,
                 "session": change.session,
+                "changedAt": change.changed_at,
+                "changedBy": change.changed_by,
             }
             for change in person.rating_changes
         ],

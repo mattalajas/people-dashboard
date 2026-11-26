@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 from typing import Any
 
-from calibration.model import Axis, Band, Group, Person, RatingChange, SelfReview, SessionState
+from calibration.model import Band, Group, Person, RatingChange, SelfReview, SessionState
 
 
 def data_dir() -> Path:
@@ -37,10 +37,25 @@ def _cycle(cycle_id: str) -> Group:
     cycles = load_collection("cycles")
     cycle = next(item for item in cycles if item["_id"] == cycle_id)
     groups = load_collection("groups")
-    return _group(str(cycle["root_group_id"]), groups, _people(), _summaries())
+    names = _names()
+    session_managers = {
+        str(group["name"]): names[str(group["manager_id"])]
+        for group in groups
+        if isinstance(group.get("manager_id"), str) and str(group.get("manager_id")) in names
+    }
+    return _group(str(cycle["root_group_id"]), groups, _people(session_managers), _summaries(), names)
 
 
-def _people() -> dict[str, Person]:
+def _names() -> dict[str, str]:
+    names: dict[str, str] = {}
+    for user in load_collection("users"):
+        name = user.get("Name")
+        if isinstance(name, str):
+            names[str(user["_id"])] = name
+    return names
+
+
+def _people(session_managers: dict[str, str]) -> dict[str, Person]:
     reviews = _index(load_collection("user_reviews"), "user_id")
     assessments = _index(load_collection("manager_reviews"), "user_id")
     people: dict[str, Person] = {}
@@ -62,7 +77,7 @@ def _people() -> dict[str, Person]:
                 culture=str(review["Culture_review"]),
                 whats_next=str(review["Whats_next_review"]),
             ),
-            rating_changes=_rating_changes(history, craft, culture),
+            rating_changes=_rating_changes(history, craft, culture, session_managers),
         )
     return people
 
@@ -71,6 +86,7 @@ def _rating_changes(
     history: list[Any],
     craft: str,
     culture: str,
+    session_managers: dict[str, str],
 ) -> tuple[RatingChange, ...]:
     if not history:
         return ()
@@ -90,21 +106,15 @@ def _rating_changes(
         culture_changed = previous_culture != nxt["Culture_score"]
         if craft_changed == culture_changed:
             raise ValueError("a rating change records one axis")
-        if craft_changed:
-            axis = Axis.CRAFT
-            previous = previous_craft
-            new = nxt["Craft_score"]
-        else:
-            axis = Axis.CULTURE
-            previous = previous_culture
-            new = nxt["Culture_score"]
+        session = str(entry["Session"])
         changes.append(
             RatingChange(
-                axis=axis,
-                previous=Band(previous),
-                new=Band(new),
+                previous_craft=Band(previous_craft),
+                previous_culture=Band(previous_culture),
                 reason=str(entry["Justification"]),
-                session=str(entry["Session"]),
+                session=session,
+                changed_at=str(entry["Timestamps"]),
+                changed_by=session_managers[session],
             )
         )
     return tuple(changes)
@@ -123,6 +133,7 @@ def _group(
     groups: list[dict[str, Any]],
     people: dict[str, Person],
     summaries: dict[str, str | None],
+    names: dict[str, str],
 ) -> Group:
     document = next(group for group in groups if group["_id"] == group_id)
     member_ids = document["member_ids"]
@@ -131,12 +142,16 @@ def _group(
     children = [group for group in groups if group["parent_id"] == group_id]
     manager_id = document.get("manager_id")
     summary = summaries.get(str(manager_id)) if isinstance(manager_id, str) else None
+    manager_name = names.get(str(manager_id)) if isinstance(manager_id, str) else None
     return Group(
         name=str(document["name"]),
         session=SessionState(str(document["session"])),
         people=tuple(people[str(member_id)] for member_id in member_ids),
-        children=tuple(_group(str(child["_id"]), groups, people, summaries) for child in children),
+        children=tuple(
+            _group(str(child["_id"]), groups, people, summaries, names) for child in children
+        ),
         ai_summary=summary,
+        manager_name=manager_name,
     )
 
 

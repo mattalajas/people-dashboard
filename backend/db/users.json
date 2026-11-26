@@ -1,12 +1,14 @@
 [
   {
     "_id": "manager-engineering",
+    "Name": "Jordan Hale",
     "manager_id": null,
     "Team": null,
     "Department": "Engineering"
   },
   {
     "_id": "manager-platform",
+    "Name": "Avery Cole",
     "manager_id": "manager-engineering",
     "Team": "Platform",
     "Department": "Engineering"
@@ -61,6 +63,7 @@
   },
   {
     "_id": "manager-infra",
+    "Name": "Riley Shah",
     "manager_id": "manager-engineering",
     "Team": "Infra",
     "Department": "Engineering"
@@ -103,6 +106,7 @@
   },
   {
     "_id": "manager-design",
+    "Name": "Morgan Ellis",
     "manager_id": "manager-engineering",
     "Team": "Design",
     "Department": "Engineering"
@@ -127,6 +131,7 @@
   },
   {
     "_id": "manager-research",
+    "Name": "Quinn Adler",
     "manager_id": "manager-engineering",
     "Team": "Research",
     "Department": "Engineering"
@@ -151,18 +156,21 @@
   },
   {
     "_id": "manager-division",
+    "Name": "Casey Nguyen",
     "manager_id": null,
     "Team": null,
     "Department": null
   },
   {
     "_id": "manager-product",
+    "Name": "Parker Singh",
     "manager_id": "manager-division",
     "Team": null,
     "Department": "Product"
   },
   {
     "_id": "manager-north",
+    "Name": "Drew Okonkwo",
     "manager_id": "manager-product",
     "Team": "North",
     "Department": "Product"
@@ -181,6 +189,7 @@
   },
   {
     "_id": "manager-south",
+    "Name": "Samira Patel",
     "manager_id": "manager-product",
     "Team": "South",
     "Department": "Product"
@@ -199,6 +208,7 @@
   },
   {
     "_id": "manager-support",
+    "Name": "Alex Romero",
     "manager_id": "manager-division",
     "Team": "Support",
     "Department": "Support"

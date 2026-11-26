@@ -12,11 +12,6 @@ class Band(Enum):
     EXCEPTIONAL = "Exceptional"
 
 
-class Axis(Enum):
-    CRAFT = "Craft"
-    CULTURE = "Culture"
-
-
 class SessionState(Enum):
     OPEN = "open"
     CLOSED = "closed"
@@ -24,11 +19,12 @@ class SessionState(Enum):
 
 @dataclass(frozen=True)
 class RatingChange:
-    axis: Axis
-    previous: Band
-    new: Band
+    previous_craft: Band
+    previous_culture: Band
     reason: str
     session: str
+    changed_at: str
+    changed_by: str
 
 
 @dataclass(frozen=True)
@@ -56,3 +52,4 @@ class Group:
     people: tuple[Person, ...] = ()
     children: tuple[Group, ...] = ()
     ai_summary: str | None = None
+    manager_name: str | None = None

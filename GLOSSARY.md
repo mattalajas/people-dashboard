@@ -55,7 +55,7 @@ A **Group** whose own **Spread** has more than 40% of its **Ratings** at Exceedi
 _Avoid_: AI flag, alert
 
 **Rating change**:
-A change to one **Rating** made in a **Calibration session** whose **Spread** contains that person, kept with the axis, both bands, and the written reason. The **Manager assessment** shows the current **Ratings**.
+A change to one **Rating** made in a **Calibration session** whose **Spread** contains that person. It keeps both previous **Ratings**, the written reason, when it changed, and the **Manager** of that session. The **Manager assessment** shows the current **Ratings**.
 _Avoid_: Audit log, calibration history
 
 **AI summary**:

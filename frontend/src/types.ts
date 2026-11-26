@@ -8,16 +8,15 @@ export const bands = [
 
 export type Band = (typeof bands)[number];
 
-export type Axis = "Craft" | "Culture";
-
 export type SessionState = "open" | "closed";
 
 export type RatingChange = {
-  axis: Axis;
-  previous: Band;
-  new: Band;
+  previousCraft: Band;
+  previousCulture: Band;
   reason: string;
   session: string;
+  changedAt: string;
+  changedBy: string;
 };
 
 export type PersonLine = {
@@ -43,8 +42,10 @@ export type GroupCard = {
   name: string;
   session: SessionState;
   spread: SpreadBand[] | null;
+  exceedingShare: number | null;
   flagged: boolean;
   aiSummary: string | null;
+  managerName: string | null;
   personLines: PersonLine[];
 };
 

@@ -17,6 +17,7 @@ def test_engineering_is_open_and_has_no_person_lines() -> None:
     assert department["session"] == "open"
     assert department["personLines"] == []
     assert department["flagged"] is False
+    assert department["exceedingShare"] == 33
     assert department["aiSummary"] is None
     assert department["spread"] == [
         {"band": "Below", "count": 1},
@@ -32,6 +33,7 @@ def test_platform_histogram_counts_both_ratings_for_eight_people() -> None:
     platform = view["groups"][0]
 
     assert platform["name"] == "Platform"
+    assert platform["managerName"] == "Avery Cole"
     assert platform["session"] == "closed"
     assert platform["spread"] == [
         {"band": "Below", "count": 2},
@@ -64,21 +66,24 @@ def test_person_lines_have_no_name_and_keep_current_ratings() -> None:
     assert first["craftRating"] == "Strong"
     assert first["ratingChanges"] == [
         {
-            "axis": "Craft",
-            "previous": "Developing",
-            "new": "Strong",
+            "previousCraft": "Developing",
+            "previousCulture": "Strong",
             "reason": "Scope grew",
             "session": "Platform",
+            "changedAt": "2026-03-01T08:00:00Z",
+            "changedBy": "Avery Cole",
         }
     ]
+    assert "new" not in first["ratingChanges"][0]
     assert second["cultureRating"] == "Strong"
     assert second["ratingChanges"] == [
         {
-            "axis": "Culture",
-            "previous": "Below",
-            "new": "Strong",
+            "previousCraft": "Exceeding",
+            "previousCulture": "Below",
             "reason": "Steadier collaboration",
             "session": "Platform",
+            "changedAt": "2026-03-01T08:00:00Z",
+            "changedBy": "Avery Cole",
         }
     ]
     assert lines[2]["ratingChanges"] == []
@@ -133,7 +138,11 @@ def test_engineering_histogram_is_only_the_hidden_teams() -> None:
     assert department["spread"] is not None
     assert sum(band["count"] for band in department["spread"]) == 12
     assert sum(band["count"] for band in by_name["Platform"]["spread"]) == 16
+    assert by_name["Platform"]["exceedingShare"] == 44
     assert sum(band["count"] for band in by_name["Infra"]["spread"]) == 12
+    assert by_name["Infra"]["exceedingShare"] == 17
+    assert by_name["Design"]["exceedingShare"] == 50
+    assert by_name["Research"]["exceedingShare"] == 17
     assert by_name["Design"]["spread"] is None
     assert by_name["Research"]["spread"] is None
 
@@ -147,11 +156,12 @@ def test_engineering_session_change_appears_on_the_design_person_line() -> None:
     assert line["cultureRating"] == "Exceeding"
     assert line["ratingChanges"] == [
         {
-            "axis": "Culture",
-            "previous": "Strong",
-            "new": "Exceeding",
+            "previousCraft": "Exceeding",
+            "previousCulture": "Strong",
             "reason": "The critique holds up across Engineering",
             "session": "Engineering",
+            "changedAt": "2026-03-01T08:30:00Z",
+            "changedBy": "Jordan Hale",
         }
     ]
     assert view["department"]["personLines"] == []
@@ -172,6 +182,7 @@ def test_a_department_still_under_five_draws_no_histogram_and_rolls_onward() -> 
         {"band": "Exceptional", "count": 0},
     ]
     assert by_name["Product"]["spread"] is None
+    assert by_name["Product"]["exceedingShare"] == 0
     assert by_name["Product"]["personLines"] == []
     assert by_name["Support"]["spread"] is None
 
