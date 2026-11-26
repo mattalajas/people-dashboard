@@ -67,19 +67,26 @@ describe("department page", () => {
     expect(within(platform).getByText("The line marks the 40% flag threshold.")).toBeInTheDocument();
   });
 
-  it("shows eight unnamed person lines with both ratings, both justifications, and the self review", async () => {
+  it("labels each person line Employee A onward and keeps the ratings visible", async () => {
     const user = userEvent.setup();
     renderPage();
 
     const platform = screen.getByRole("region", { name: "Platform" });
     const lines = within(platform).getAllByRole("article", { name: "Person line" });
     expect(lines).toHaveLength(8);
+    expect(within(lines[0]).getByText("Employee A")).toBeInTheDocument();
+    expect(within(lines[1]).getByText("Employee B")).toBeInTheDocument();
+    expect(within(lines[7]).getByText("Employee H")).toBeInTheDocument();
+    expect(within(lines[0]).getByText("This history has been changed")).toBeInTheDocument();
+    expect(within(lines[2]).queryByText("This history has been changed")).not.toBeInTheDocument();
     expect(within(platform).queryByText("Took on the rollout")).not.toBeInTheDocument();
 
     await user.click(within(platform).getAllByRole("button", { name: "Show review" })[0]);
     const line = personLine("Took on the rollout");
     const manager = within(line).getByRole("region", { name: "Manager review" });
     expect(within(line).getByRole("heading", { name: "Manager review" })).toBeInTheDocument();
+    expect(line.querySelector(".review-ratings")).toHaveTextContent("Craft:");
+    expect(line.querySelector(".review-ratings")).toHaveTextContent("Culture:");
     expect(manager).toHaveTextContent("Craft rating: Strong");
     expect(manager).toHaveTextContent("Justification: Took on the rollout");
     expect(manager).toHaveTextContent("Culture rating: Strong");
@@ -92,16 +99,29 @@ describe("department page", () => {
     expect(within(line).queryByText("Scope grew")).not.toBeInTheDocument();
   });
 
-  it("shows only the chosen person's rating changes, and keeps the current ratings", async () => {
+  it("keeps every opened rating history visible, and keeps the current ratings", async () => {
     const user = userEvent.setup();
     renderPage();
 
     const platform = screen.getByRole("region", { name: "Platform" });
     await user.click(within(platform).getAllByRole("button", { name: "Show review" })[0]);
     const first = personLine("Took on the rollout");
+    expect(
+      within(first).getByRole("region", { name: "Self review" }).querySelector("button"),
+    ).toBeNull();
     await user.click(within(first).getByRole("button", { name: "Show rating changes" }));
 
     const firstHistory = within(first).getByRole("region", { name: "Rating changes" });
+    await user.click(within(firstHistory).getByRole("button", { name: "Show previous results" }));
+    const spread = within(platform).getByRole("list", { name: "Platform spread" });
+    expect(within(spread).getByText("Developing").parentElement).toHaveTextContent("4 · 25%");
+    expect(within(spread).getByText("Strong").parentElement).toHaveTextContent("3 · 19%");
+    expect(within(platform).getByText("Showing results before the change for Employee A.")).toBeInTheDocument();
+    expect(within(platform).getByText("44%")).toBeInTheDocument();
+    await user.click(within(firstHistory).getByRole("button", { name: "Show current results" }));
+    expect(within(spread).getByText("Developing").parentElement).toHaveTextContent("3 · 19%");
+    expect(within(spread).getByText("Strong").parentElement).toHaveTextContent("4 · 25%");
+    expect(within(platform).queryByText("Showing results before the change for Employee A.")).not.toBeInTheDocument();
     expect(within(firstHistory).getByText("Avery Cole · 1 Mar 2026, 08:00")).toBeInTheDocument();
     expect(firstHistory).toHaveTextContent("Craft rating: Developing");
     expect(firstHistory).toHaveTextContent("Culture rating: Strong");
@@ -118,7 +138,7 @@ describe("department page", () => {
     const second = personLine("Set the technical direction");
     await user.click(within(second).getByRole("button", { name: "Show rating changes" }));
 
-    expect(screen.queryByText("Scope grew")).not.toBeInTheDocument();
+    expect(screen.getByText("Scope grew")).toBeInTheDocument();
     const secondHistory = within(second).getByRole("region", { name: "Rating changes" });
     expect(secondHistory).toHaveTextContent("Craft rating: Exceeding");
     expect(secondHistory).toHaveTextContent("Culture rating: Below");
@@ -131,6 +151,7 @@ describe("department page", () => {
     expect(cultureRating).toHaveTextContent("Culture rating: Strong");
     expect(cultureRating).not.toHaveTextContent("Below");
 
+    await user.click(within(first).getByRole("button", { name: "Hide rating changes" }));
     await user.click(within(second).getByRole("button", { name: "Hide rating changes" }));
     await user.click(within(platform).getAllByRole("button", { name: "Show review" })[0]);
     const untouched = personLine("Missed the design bar");
@@ -138,6 +159,40 @@ describe("department page", () => {
     expect(within(untouched).queryByRole("region", { name: "Rating changes" })).not.toBeInTheDocument();
     expect(screen.queryByText("Scope grew")).not.toBeInTheDocument();
     expect(screen.queryByText("Steadier collaboration")).not.toBeInTheDocument();
+  });
+
+  it("compounds previous results from every open history onto the spread", async () => {
+    const user = userEvent.setup();
+    renderPage();
+
+    const platform = screen.getByRole("region", { name: "Platform" });
+    const lines = within(platform).getAllByRole("article", { name: "Person line" });
+    await user.click(within(lines[0]).getByRole("button", { name: "Show review" }));
+    await user.click(within(lines[1]).getByRole("button", { name: "Show review" }));
+    await user.click(within(lines[0]).getByRole("button", { name: "Show rating changes" }));
+    await user.click(within(lines[1]).getByRole("button", { name: "Show rating changes" }));
+    expect(within(lines[0]).getByText("Scope grew")).toBeInTheDocument();
+    expect(within(lines[1]).getByText("Steadier collaboration")).toBeInTheDocument();
+
+    await user.click(within(lines[0]).getByRole("button", { name: "Show previous results" }));
+    await user.click(within(lines[1]).getByRole("button", { name: "Show previous results" }));
+
+    const spread = within(platform).getByRole("list", { name: "Platform spread" });
+    expect(within(spread).getByText("Below").parentElement).toHaveTextContent("3 · 19%");
+    expect(within(spread).getByText("Developing").parentElement).toHaveTextContent("4 · 25%");
+    expect(within(spread).getByText("Strong").parentElement).toHaveTextContent("2 · 13%");
+    expect(within(spread).getByText("Exceeding").parentElement).toHaveTextContent("5 · 31%");
+    expect(within(platform).getByText("44%")).toBeInTheDocument();
+    expect(
+      within(platform).getByText("Showing results before the changes for Employee A and Employee B."),
+    ).toBeInTheDocument();
+    expect(within(lines[0]).getByText("Scope grew")).toBeInTheDocument();
+    expect(within(lines[1]).getByText("Steadier collaboration")).toBeInTheDocument();
+
+    const summary = within(screen.getByRole("region", { name: "Engineering" })).getByRole("list", {
+      name: "Engineering groups",
+    });
+    expect(within(summary).getByText("44%")).toBeInTheDocument();
   });
 
   it("shows Platform flagged with an AI summary, and Infra with neither", async () => {
@@ -217,6 +272,13 @@ describe("department page", () => {
     expect(history).toHaveTextContent("Justification: The critique holds up across Engineering");
     expect(within(history).queryByText("New")).not.toBeInTheDocument();
     expect(within(history).queryByText("Engineering")).not.toBeInTheDocument();
+    const engineeringSummary = within(screen.getByRole("region", { name: "Engineering" })).getByRole("list", {
+      name: "Engineering groups",
+    });
+    expect(within(engineeringSummary).getByText("50%")).toBeInTheDocument();
+    await user.click(within(history).getByRole("button", { name: "Show previous results" }));
+    expect(within(engineeringSummary).getByText("33%")).toBeInTheDocument();
+    expect(within(engineeringSummary).queryByText("50%")).not.toBeInTheDocument();
     expect(
       within(screen.getByRole("region", { name: "Engineering" })).queryByText(
         "The critique holds up across Engineering",

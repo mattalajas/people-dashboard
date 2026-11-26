@@ -1,14 +1,37 @@
 import { useState } from "react";
-import type { Band, DepartmentView, GroupCard, PersonLine, SpreadBand } from "./types";
+import { bands, type Band, type DepartmentView, type GroupCard, type PersonLine, type RatingChange, type SpreadBand } from "./types";
+
+type AppliedHistory = {
+  personId: string;
+  changedAt: string;
+  reason: string;
+  previousCraft: Band;
+  previousCulture: Band;
+};
 
 type DepartmentPageProps = {
   view: DepartmentView;
 };
 
 export function DepartmentPage({ view }: DepartmentPageProps) {
-  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [openHistories, setOpenHistories] = useState<string[]>([]);
   const [selectedTeam, setSelectedTeam] = useState(view.groups[0]?.name ?? null);
+  const [applied, setApplied] = useState<AppliedHistory[]>([]);
   const team = view.groups.find((group) => group.name === selectedTeam) ?? null;
+
+  function toggleHistory(id: string) {
+    setOpenHistories((current) =>
+      current.includes(id) ? current.filter((item) => item !== id) : [...current, id],
+    );
+  }
+
+  function toggleApplied(next: AppliedHistory) {
+    setApplied((current) =>
+      current.some((item) => sameHistory(item, next))
+        ? current.filter((item) => !sameHistory(item, next))
+        : [...current.filter((item) => item.personId !== next.personId), next],
+    );
+  }
 
   return (
     <main className="page">
@@ -19,8 +42,11 @@ export function DepartmentPage({ view }: DepartmentPageProps) {
           title="h1"
           variant="department"
           childGroups={view.groups}
-          selectedId={selectedId}
-          onSelect={setSelectedId}
+          openHistories={openHistories}
+          onToggleHistory={toggleHistory}
+          onClearHistories={() => setOpenHistories([])}
+          applied={applied}
+          onToggleApplied={toggleApplied}
         />
         <div className="teams">
           <div className="team-switcher" role="group" aria-label={`${view.department.name} teams`}>
@@ -32,7 +58,8 @@ export function DepartmentPage({ view }: DepartmentPageProps) {
                 aria-pressed={group.name === selectedTeam}
                 onClick={() => {
                   setSelectedTeam(group.name);
-                  setSelectedId(null);
+                  setOpenHistories([]);
+                  setApplied([]);
                 }}
               >
                 {group.name}
@@ -45,8 +72,11 @@ export function DepartmentPage({ view }: DepartmentPageProps) {
               group={team}
               title="h2"
               variant="team"
-              selectedId={selectedId}
-              onSelect={setSelectedId}
+              openHistories={openHistories}
+              onToggleHistory={toggleHistory}
+              onClearHistories={() => setOpenHistories([])}
+              applied={applied}
+              onToggleApplied={toggleApplied}
             />
           ) : null}
         </div>
@@ -60,8 +90,11 @@ type GroupSectionProps = {
   title: "h1" | "h2";
   variant: "department" | "team";
   childGroups?: GroupCard[];
-  selectedId: string | null;
-  onSelect: (id: string | null) => void;
+  openHistories: string[];
+  onToggleHistory: (id: string) => void;
+  onClearHistories: () => void;
+  applied: AppliedHistory[];
+  onToggleApplied: (history: AppliedHistory) => void;
 };
 
 function GroupSection({
@@ -69,8 +102,11 @@ function GroupSection({
   title: Title,
   variant,
   childGroups = [],
-  selectedId,
-  onSelect,
+  openHistories,
+  onToggleHistory,
+  onClearHistories,
+  applied,
+  onToggleApplied,
 }: GroupSectionProps) {
   const [reviewsOpen, setReviewsOpen] = useState(true);
   const people = group.personLines.length;
@@ -99,11 +135,16 @@ function GroupSection({
       </div>
       <div className="group-body">
           {variant === "department" ? (
-            <DepartmentSummary name={group.name} groups={childGroups} />
+            <DepartmentSummary name={group.name} groups={childGroups} applied={applied} />
           ) : (
             <>
               {group.spread ? (
-                <Spread name={group.name} bands={group.spread} exceedingShare={group.exceedingShare} />
+                <Spread
+                  name={group.name}
+                  bands={displayedSpread(group, applied)}
+                  exceedingShare={displayedExceeding(group, applied)}
+                  historicalNote={historyNote(group, applied)}
+                />
               ) : null}
               {group.aiSummary ? (
                 <section className="ai-summary" aria-label={`${group.name} AI summary`}>
@@ -119,7 +160,7 @@ function GroupSection({
                     aria-expanded={reviewsOpen}
                     onClick={() => {
                       if (reviewsOpen) {
-                        onSelect(null);
+                        onClearHistories();
                       }
                       setReviewsOpen((value) => !value);
                     }}
@@ -129,12 +170,15 @@ function GroupSection({
                   </button>
                   {reviewsOpen ? (
                     <ul className="person-lines" aria-label={`${group.name} person lines`}>
-                      {group.personLines.map((line) => (
+                      {group.personLines.map((line, index) => (
                         <li key={line.id}>
                           <PersonLineCard
                             line={line}
-                            selected={selectedId === line.id}
-                            onSelect={onSelect}
+                            employeeLabel={employeeName(index)}
+                            historyOpen={openHistories.includes(line.id)}
+                            onToggleHistory={onToggleHistory}
+                            applied={applied}
+                            onToggleApplied={onToggleApplied}
                           />
                         </li>
                       ))}
@@ -149,7 +193,15 @@ function GroupSection({
   );
 }
 
-function DepartmentSummary({ name, groups }: { name: string; groups: GroupCard[] }) {
+function DepartmentSummary({
+  name,
+  groups,
+  applied,
+}: {
+  name: string;
+  groups: GroupCard[];
+  applied: AppliedHistory[];
+}) {
   const flagged = groups.filter((group) => group.flagged && group.exceedingShare !== null);
   return (
     <div className="department-summary">
@@ -158,10 +210,10 @@ function DepartmentSummary({ name, groups }: { name: string; groups: GroupCard[]
           <li key={group.name}>
             <span className="band">{group.name}</span>
             <ThresholdTrack
-              percent={group.exceedingShare ?? 0}
+              percent={displayedExceeding(group, applied) ?? 0}
               flagged={group.flagged}
             />
-            <span className="count">{group.exceedingShare ?? 0}%</span>
+            <span className="count">{displayedExceeding(group, applied) ?? 0}%</span>
           </li>
         ))}
       </ul>
@@ -181,10 +233,12 @@ function Spread({
   name,
   bands,
   exceedingShare,
+  historicalNote = null,
 }: {
   name: string;
   bands: SpreadBand[];
   exceedingShare: number | null;
+  historicalNote?: string | null;
 }) {
   const total = bands.reduce((sum, band) => sum + band.count, 0);
   const ordered = [...bands].reverse();
@@ -211,6 +265,7 @@ function Spread({
         <ThresholdTrack percent={exceedingShare ?? 0} flagged />
         <span className="count">{exceedingShare ?? 0}%</span>
       </div>
+      {historicalNote ? <p className="chart-note">{historicalNote}</p> : null}
       <p className="chart-note">The line marks the 40% flag threshold.</p>
     </div>
   );
@@ -234,21 +289,26 @@ function sharePercent(count: number, total: number): number {
 
 function PersonLineCard({
   line,
-  selected,
-  onSelect,
+  employeeLabel,
+  historyOpen,
+  onToggleHistory,
+  applied,
+  onToggleApplied,
 }: {
   line: PersonLine;
-  selected: boolean;
-  onSelect: (id: string | null) => void;
+  employeeLabel: string;
+  historyOpen: boolean;
+  onToggleHistory: (id: string) => void;
+  applied: AppliedHistory[];
+  onToggleApplied: (history: AppliedHistory) => void;
 }) {
   const [open, setOpen] = useState(false);
 
   return (
     <article className="person-line" aria-label="Person line">
       <div className="review-header">
-        {open ? (
-          <h3>Manager review</h3>
-        ) : (
+        <div className="review-identity">
+          <p className="employee-label">{employeeLabel}</p>
           <p className="review-ratings">
             <span>
               Craft: <span className={bandClass(line.craftRating)}>{line.craftRating}</span>
@@ -257,23 +317,29 @@ function PersonLineCard({
               Culture: <span className={bandClass(line.cultureRating)}>{line.cultureRating}</span>
             </span>
           </p>
-        )}
-        <button
-          type="button"
-          className="review-toggle"
-          aria-expanded={open}
-          onClick={() => {
-            if (open && selected) {
-              onSelect(null);
-            }
-            setOpen((value) => !value);
-          }}
-        >
-          {open ? "Hide review" : "Show review"}
-        </button>
+        </div>
+        <div className="review-actions">
+          {line.ratingChanges.length > 0 ? (
+            <p className="history-note">This history has been changed</p>
+          ) : null}
+          <button
+            type="button"
+            className="review-toggle"
+            aria-expanded={open}
+            onClick={() => {
+              if (open && historyOpen) {
+                onToggleHistory(line.id);
+              }
+              setOpen((value) => !value);
+            }}
+          >
+            {open ? "Hide review" : "Show review"}
+          </button>
+        </div>
       </div>
       {open ? (
         <div className="review-body">
+          <h3>Manager review</h3>
           <section className="manager-review" aria-label="Manager review">
             <div className="rated">
               <p>
@@ -305,16 +371,20 @@ function PersonLineCard({
             </p>
           </section>
           {line.ratingChanges.length > 0 ? (
-            <button
-              type="button"
-              className="history-toggle"
-              aria-expanded={selected}
-              onClick={() => onSelect(selected ? null : line.id)}
-            >
-              {selected ? "Hide rating changes" : "Show rating changes"}
-            </button>
+            <section className="history-block" aria-label="Rating history">
+              <button
+                type="button"
+                className="history-toggle"
+                aria-expanded={historyOpen}
+                onClick={() => onToggleHistory(line.id)}
+              >
+                {historyOpen ? "Hide rating changes" : "Show rating changes"}
+              </button>
+              {historyOpen ? (
+                <RatingChanges line={line} applied={applied} onToggleApplied={onToggleApplied} />
+              ) : null}
+            </section>
           ) : null}
-          {selected && line.ratingChanges.length > 0 ? <RatingChanges line={line} /> : null}
         </div>
       ) : null}
     </article>
@@ -333,25 +403,149 @@ function formatChangedAt(value: string): string {
   return `${date.getUTCDate()} ${months[date.getUTCMonth()]} ${date.getUTCFullYear()}, ${hour}:${minute}`;
 }
 
-function RatingChanges({ line }: { line: PersonLine }) {
+function RatingChanges({
+  line,
+  applied,
+  onToggleApplied,
+}: {
+  line: PersonLine;
+  applied: AppliedHistory[];
+  onToggleApplied: (history: AppliedHistory) => void;
+}) {
   return (
     <section className="rating-changes" aria-label="Rating changes">
-      {line.ratingChanges.map((change) => (
-        <article key={`${change.session}-${change.changedAt}-${change.reason}`}>
-          <p className="change-meta">
-            {change.changedBy} · {formatChangedAt(change.changedAt)}
-          </p>
-          <p>
-            <span className="field-label">Craft rating:</span> {change.previousCraft}
-          </p>
-          <p>
-            <span className="field-label">Culture rating:</span> {change.previousCulture}
-          </p>
-          <p>
-            <span className="field-label">Justification:</span> {change.reason}
-          </p>
-        </article>
-      ))}
+      {line.ratingChanges.map((change) => {
+        const active = isApplied(line.id, change, applied);
+        return (
+          <article key={`${change.session}-${change.changedAt}-${change.reason}`}>
+            <div className="change-header">
+              <p className="change-meta">
+                {change.changedBy} · {formatChangedAt(change.changedAt)}
+              </p>
+              <button
+                type="button"
+                className="apply-history"
+                aria-pressed={active}
+                onClick={() =>
+                  onToggleApplied({
+                    personId: line.id,
+                    changedAt: change.changedAt,
+                    reason: change.reason,
+                    previousCraft: change.previousCraft,
+                    previousCulture: change.previousCulture,
+                  })
+                }
+              >
+                {active ? "Show current results" : "Show previous results"}
+              </button>
+            </div>
+            <p>
+              <span className="field-label">Craft rating:</span> {change.previousCraft}
+            </p>
+            <p>
+              <span className="field-label">Culture rating:</span> {change.previousCulture}
+            </p>
+            <p>
+              <span className="field-label">Justification:</span> {change.reason}
+            </p>
+          </article>
+        );
+      })}
     </section>
   );
+}
+
+function sameHistory(left: AppliedHistory, right: AppliedHistory): boolean {
+  return left.personId === right.personId && left.changedAt === right.changedAt && left.reason === right.reason;
+}
+
+function isApplied(personId: string, change: RatingChange, applied: AppliedHistory[]): boolean {
+  return applied.some(
+    (item) => item.personId === personId && item.changedAt === change.changedAt && item.reason === change.reason,
+  );
+}
+
+function appliedFor(group: GroupCard, applied: AppliedHistory[]): AppliedHistory[] {
+  return applied.filter((item) => group.personLines.some((line) => line.id === item.personId));
+}
+
+function employeeName(index: number): string {
+  return `Employee ${String.fromCharCode(65 + index)}`;
+}
+
+function historyNote(group: GroupCard, applied: AppliedHistory[]): string | null {
+  const names = group.personLines.flatMap((line, index) =>
+    applied.some((item) => item.personId === line.id) ? [employeeName(index)] : [],
+  );
+  if (names.length === 0) {
+    return null;
+  }
+  const listed = names.length === 1 ? names[0] : `${names.slice(0, -1).join(", ")} and ${names[names.length - 1]}`;
+  return `Showing results before the ${names.length === 1 ? "change" : "changes"} for ${listed}.`;
+}
+
+function displayedSpread(group: GroupCard, applied: AppliedHistory[]): SpreadBand[] {
+  if (!group.spread) {
+    return [];
+  }
+  const relevant = appliedFor(group, applied);
+  if (relevant.length === 0) {
+    return group.spread;
+  }
+  const counts = new Map(group.spread.map((band) => [band.band, band.count]));
+  for (const item of relevant) {
+    const line = group.personLines.find((person) => person.id === item.personId);
+    if (!line) {
+      continue;
+    }
+    moveCount(counts, line.craftRating, -1);
+    moveCount(counts, line.cultureRating, -1);
+    moveCount(counts, item.previousCraft, 1);
+    moveCount(counts, item.previousCulture, 1);
+  }
+  return bands.map((band) => ({ band, count: counts.get(band) ?? 0 }));
+}
+
+function displayedExceeding(group: GroupCard, applied: AppliedHistory[]): number | null {
+  if (appliedFor(group, applied).length === 0) {
+    return group.exceedingShare;
+  }
+  if (group.spread) {
+    return shareOf(displayedSpread(group, applied));
+  }
+  return shareFromLines(group.personLines, applied);
+}
+
+function shareOf(spread: SpreadBand[]): number | null {
+  const total = spread.reduce((sum, band) => sum + band.count, 0);
+  if (total === 0) {
+    return null;
+  }
+  const high = spread
+    .filter((band) => band.band === "Exceeding" || band.band === "Exceptional")
+    .reduce((sum, band) => sum + band.count, 0);
+  return sharePercent(high, total);
+}
+
+function shareFromLines(lines: PersonLine[], applied: AppliedHistory[]): number | null {
+  if (lines.length === 0) {
+    return null;
+  }
+  let high = 0;
+  for (const line of lines) {
+    const override = applied.find((item) => item.personId === line.id);
+    const craft = override ? override.previousCraft : line.craftRating;
+    const culture = override ? override.previousCulture : line.cultureRating;
+    if (craft === "Exceeding" || craft === "Exceptional") {
+      high += 1;
+    }
+    if (culture === "Exceeding" || culture === "Exceptional") {
+      high += 1;
+    }
+  }
+  return sharePercent(high, lines.length * 2);
+}
+
+function moveCount(counts: Map<Band, number>, band: Band, delta: number) {
+  counts.set(band, (counts.get(band) ?? 0) + delta);
 }
