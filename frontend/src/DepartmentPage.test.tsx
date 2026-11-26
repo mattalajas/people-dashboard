@@ -51,6 +51,7 @@ describe("department page", () => {
     renderPage();
 
     const platform = screen.getByRole("region", { name: "Platform" });
+    expect(within(platform).queryByText("Spread not shown because this team has fewer than 5 people.")).not.toBeInTheDocument();
     const spread = within(platform).getByRole("list", { name: "Platform spread" });
     const bands = within(spread).getAllByRole("listitem");
     expect(bands.map((band) => band.textContent?.replace(/\s+/g, ""))).toEqual([
@@ -266,6 +267,7 @@ describe("department page", () => {
     expect(within(design).getByRole("heading", { name: "Design" })).toBeInTheDocument();
     expect(within(design).getByText("Closed")).toBeInTheDocument();
     expect(within(design).queryByRole("list", { name: "Design spread" })).not.toBeInTheDocument();
+    expect(within(design).getByText("Spread not shown because this team has fewer than 5 people.")).toBeInTheDocument();
     expect(within(design).getByText("Flagged")).toBeInTheDocument();
     expect(within(design).getByRole("region", { name: "Design AI summary" })).toHaveTextContent(
       "raising the visual bar",
@@ -281,6 +283,7 @@ describe("department page", () => {
     expect(within(research).getByRole("heading", { name: "Research" })).toBeInTheDocument();
     expect(within(research).getByText("Closed")).toBeInTheDocument();
     expect(within(research).queryByRole("list", { name: "Research spread" })).not.toBeInTheDocument();
+    expect(within(research).getByText("Spread not shown because this team has fewer than 5 people.")).toBeInTheDocument();
     expect(within(research).queryByText("Flagged")).not.toBeInTheDocument();
     expect(within(research).queryByRole("region", { name: "Research AI summary" })).not.toBeInTheDocument();
     expect(within(research).getAllByRole("article", { name: "Person line" })).toHaveLength(3);
@@ -346,12 +349,14 @@ describe("department page", () => {
     const product = screen.getByRole("region", { name: "Product" });
     expect(within(product).getByText("Closed")).toBeInTheDocument();
     expect(within(product).queryByRole("list", { name: "Product spread" })).not.toBeInTheDocument();
+    expect(within(product).getByText("Spread not shown because this team has fewer than 5 people.")).toBeInTheDocument();
     expect(within(product).queryByRole("list", { name: "Product person lines" })).not.toBeInTheDocument();
 
     await user.click(screen.getByRole("button", { name: "Support" }));
     expect(screen.queryByRole("region", { name: "Product" })).not.toBeInTheDocument();
     const support = screen.getByRole("region", { name: "Support" });
     expect(within(support).queryByRole("list", { name: "Support spread" })).not.toBeInTheDocument();
+    expect(within(support).getByText("Spread not shown because this team has fewer than 5 people.")).toBeInTheDocument();
     expect(within(support).getAllByRole("article", { name: "Person line" })).toHaveLength(2);
   });
 
@@ -365,6 +370,7 @@ describe("department page", () => {
 
     const north = screen.getByRole("region", { name: "North" });
     expect(within(north).queryByRole("list", { name: "North spread" })).not.toBeInTheDocument();
+    expect(within(north).getByText("Spread not shown because this team has fewer than 5 people.")).toBeInTheDocument();
     expect(within(north).getAllByRole("article", { name: "Person line" })).toHaveLength(2);
     await user.click(within(north).getAllByRole("button", { name: "Show review" })[0]);
     expect(within(north).getByText(/Shipped the shared kit/)).toBeInTheDocument();

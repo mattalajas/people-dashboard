@@ -59,7 +59,7 @@ For now, just a department view that shows flagged teams and other teams. Each t
     - Refer to rules to flag a particular team slice:
         - 5 scores (Below, Developing, Strong, Exceeding, Exceptional)
         - More than 40% Exceeding or Exceptional. Exactly 40% is not a flag
-        - Under 5 people, hide the histogram only
+        - Under 5 people, hide the histogram and say why
             - Roll those ratings into the parent
             - The team stays visible and is still assessed
         - Every change needs a written response once the manager has proposed

@@ -148,7 +148,11 @@ function GroupSection({
                   bands={displayedSpread(group, applied)}
                   exceedingShare={displayedExceeding(group, applied)}
                 />
-              ) : null}
+              ) : (
+                <p className="chart-note spread-caption">
+                  Spread not shown because this team has fewer than 5 people.
+                </p>
+              )}
               {group.aiSummary ? (
                 <section className="ai-summary" aria-label={`${group.name} AI summary`}>
                   <h3>AI summary</h3>
