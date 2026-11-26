@@ -3,7 +3,7 @@
     "_id": "manager-review-person-1",
     "user_id": "person-1",
     "manager_id": "manager-platform",
-    "Craft_score": "Strong",
+    "Craft_score": "Exceeding",
     "Culture_score": "Strong",
     "Craft_score_justification": "Took on the rollout",
     "Culture_score_justification": "Steadied the team rituals",
@@ -31,9 +31,9 @@
     "Timestamps": "2026-03-01T09:00:00Z",
     "Calibration_history": [
       {
-        "Craft_score": "Exceeding",
-        "Culture_score": "Below",
-        "Justification": "Steadier collaboration",
+        "Craft_score": "Strong",
+        "Culture_score": "Strong",
+        "Justification": "The technical direction holds up",
         "Timestamps": "2026-03-01T08:00:00Z",
         "Session": "Platform"
       }

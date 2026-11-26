@@ -111,6 +111,7 @@ function GroupSection({
   const [reviewsOpen, setReviewsOpen] = useState(true);
   const people = group.personLines.length;
   const sessionLabel = group.session === "open" ? "Open" : "Closed";
+  const note = variant === "team" ? historyNote(group, applied) : null;
 
   return (
     <section className="group" aria-label={group.name}>
@@ -123,9 +124,12 @@ function GroupSection({
             ) : null}
           </div>
           <p className="group-meta">
-            {variant === "department"
-              ? "Calibration"
-              : `${people} ${people === 1 ? "person" : "people"}`}
+            <span>
+              {variant === "department"
+                ? "Calibration"
+                : `${people} ${people === 1 ? "person" : "people"}`}
+            </span>
+            {note ? <span className="results-note">{note}</span> : null}
           </p>
         </div>
         <div className="group-status">
@@ -143,7 +147,6 @@ function GroupSection({
                   name={group.name}
                   bands={displayedSpread(group, applied)}
                   exceedingShare={displayedExceeding(group, applied)}
-                  historicalNote={historyNote(group, applied)}
                 />
               ) : null}
               {group.aiSummary ? (
@@ -233,12 +236,10 @@ function Spread({
   name,
   bands,
   exceedingShare,
-  historicalNote = null,
 }: {
   name: string;
   bands: SpreadBand[];
   exceedingShare: number | null;
-  historicalNote?: string | null;
 }) {
   const total = bands.reduce((sum, band) => sum + band.count, 0);
   const ordered = [...bands].reverse();
@@ -265,7 +266,6 @@ function Spread({
         <ThresholdTrack percent={exceedingShare ?? 0} flagged />
         <span className="count">{exceedingShare ?? 0}%</span>
       </div>
-      {historicalNote ? <p className="chart-note">{historicalNote}</p> : null}
       <p className="chart-note">The line marks the 40% flag threshold.</p>
     </div>
   );

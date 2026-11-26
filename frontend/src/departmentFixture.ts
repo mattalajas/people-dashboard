@@ -32,8 +32,8 @@ const designSummary =
 const platformSpread: SpreadBand[] = [
   { band: "Below", count: 2 },
   { band: "Developing", count: 3 },
-  { band: "Strong", count: 4 },
-  { band: "Exceeding", count: 5 },
+  { band: "Strong", count: 3 },
+  { band: "Exceeding", count: 6 },
   { band: "Exceptional", count: 2 },
 ];
 
@@ -69,14 +69,14 @@ export const departmentView: DepartmentView = {
       name: "Platform",
       session: "closed",
       spread: platformSpread,
-      exceedingShare: 44,
+      exceedingShare: 50,
       flagged: true,
       aiSummary: platformSummary,
       managerName: "Avery Cole",
       personLines: [
         line(
           "person-1",
-          "Strong",
+          "Exceeding",
           "Strong",
           "Took on the rollout",
           "Steadied the team rituals",
@@ -99,9 +99,9 @@ export const departmentView: DepartmentView = {
           "Made reviews useful",
           [
             {
-              previousCraft: "Exceeding",
-              previousCulture: "Below",
-              reason: "Steadier collaboration",
+              previousCraft: "Strong",
+              previousCulture: "Strong",
+              reason: "The technical direction holds up",
               session: "Platform",
               changedAt: "2026-03-01T08:00:00Z",
               changedBy: "Avery Cole",

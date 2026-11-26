@@ -38,8 +38,8 @@ def test_platform_histogram_counts_both_ratings_for_eight_people() -> None:
     assert platform["spread"] == [
         {"band": "Below", "count": 2},
         {"band": "Developing", "count": 3},
-        {"band": "Strong", "count": 4},
-        {"band": "Exceeding", "count": 5},
+        {"band": "Strong", "count": 3},
+        {"band": "Exceeding", "count": 6},
         {"band": "Exceptional", "count": 2},
     ]
     assert len(platform["personLines"]) == 8
@@ -63,7 +63,7 @@ def test_person_lines_have_no_name_and_keep_current_ratings() -> None:
         }
 
     first, second = lines[0], lines[1]
-    assert first["craftRating"] == "Strong"
+    assert first["craftRating"] == "Exceeding"
     assert first["ratingChanges"] == [
         {
             "previousCraft": "Developing",
@@ -78,9 +78,9 @@ def test_person_lines_have_no_name_and_keep_current_ratings() -> None:
     assert second["cultureRating"] == "Strong"
     assert second["ratingChanges"] == [
         {
-            "previousCraft": "Exceeding",
-            "previousCulture": "Below",
-            "reason": "Steadier collaboration",
+            "previousCraft": "Strong",
+            "previousCulture": "Strong",
+            "reason": "The technical direction holds up",
             "session": "Platform",
             "changedAt": "2026-03-01T08:00:00Z",
             "changedBy": "Avery Cole",
@@ -138,7 +138,7 @@ def test_engineering_histogram_is_only_the_hidden_teams() -> None:
     assert department["spread"] is not None
     assert sum(band["count"] for band in department["spread"]) == 12
     assert sum(band["count"] for band in by_name["Platform"]["spread"]) == 16
-    assert by_name["Platform"]["exceedingShare"] == 44
+    assert by_name["Platform"]["exceedingShare"] == 50
     assert sum(band["count"] for band in by_name["Infra"]["spread"]) == 12
     assert by_name["Infra"]["exceedingShare"] == 17
     assert by_name["Design"]["exceedingShare"] == 50
