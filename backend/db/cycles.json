@@ -2,5 +2,9 @@
   {
     "_id": "cycle-2026",
     "root_group_id": "group-engineering"
+  },
+  {
+    "_id": "cycle-division",
+    "root_group_id": "group-division"
   }
 ]

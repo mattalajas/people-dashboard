@@ -53,11 +53,11 @@ Tickets 2 and 3 can both start once ticket 1 is done. Ticket 5 waits for ticket 
 
 **What to build:** Engineering's histogram is only Design and Research (6 people), so it is shown and it is not a **flag**. It does not repeat their **person lines**, and it does not include Platform or Infra. A **rating change** made in Engineering's session appears on Design's **person line** and in that person's history.
 
-- [ ] Engineering's histogram counts only Design and Research
-- [ ] Engineering's histogram does not include Platform or Infra
-- [ ] Engineering does not repeat Design's or Research's **person lines**
-- [ ] Engineering's **spread** is shown and is not a **flag**
-- [ ] A **rating change** from Engineering's session appears on Design's **person line** and in that person's history
+- [x] Engineering's histogram counts only Design and Research
+- [x] Engineering's histogram does not include Platform or Infra
+- [x] Engineering does not repeat Design's or Research's **person lines**
+- [x] Engineering's **spread** is shown and is not a **flag**
+- [x] A **rating change** from Engineering's session appears on Design's **person line** and in that person's history
 
 ## 6. Rollup when the parent is still under 5
 
@@ -65,6 +65,6 @@ Tickets 2 and 3 can both start once ticket 1 is done. Ticket 5 waits for ticket 
 
 **What to build:** A department whose hidden children still total fewer than 5 people draws no histogram. Those **ratings** would roll to the next parent. The Engineering fixture from ticket 5 stays as it is.
 
-- [ ] A department whose rolled-up **spread** still has fewer than 5 people draws no histogram
-- [ ] Those **ratings** are carried toward the next parent
-- [ ] The Engineering fixture from ticket 5 still shows its histogram of 6 people
+- [x] A department whose rolled-up **spread** still has fewer than 5 people draws no histogram
+- [x] Those **ratings** are carried toward the next parent
+- [x] The Engineering fixture from ticket 5 still shows its histogram of 6 people

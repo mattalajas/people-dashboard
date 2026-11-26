@@ -148,5 +148,71 @@
     "manager_id": "manager-research",
     "Team": "Research",
     "Department": "Engineering"
+  },
+  {
+    "_id": "manager-division",
+    "manager_id": null,
+    "Team": null,
+    "Department": null
+  },
+  {
+    "_id": "manager-product",
+    "manager_id": "manager-division",
+    "Team": null,
+    "Department": "Product"
+  },
+  {
+    "_id": "manager-north",
+    "manager_id": "manager-product",
+    "Team": "North",
+    "Department": "Product"
+  },
+  {
+    "_id": "north-1",
+    "manager_id": "manager-north",
+    "Team": "North",
+    "Department": "Product"
+  },
+  {
+    "_id": "north-2",
+    "manager_id": "manager-north",
+    "Team": "North",
+    "Department": "Product"
+  },
+  {
+    "_id": "manager-south",
+    "manager_id": "manager-product",
+    "Team": "South",
+    "Department": "Product"
+  },
+  {
+    "_id": "south-1",
+    "manager_id": "manager-south",
+    "Team": "South",
+    "Department": "Product"
+  },
+  {
+    "_id": "south-2",
+    "manager_id": "manager-south",
+    "Team": "South",
+    "Department": "Product"
+  },
+  {
+    "_id": "manager-support",
+    "manager_id": "manager-division",
+    "Team": "Support",
+    "Department": "Support"
+  },
+  {
+    "_id": "support-1",
+    "manager_id": "manager-support",
+    "Team": "Support",
+    "Department": "Support"
+  },
+  {
+    "_id": "support-2",
+    "manager_id": "manager-support",
+    "Team": "Support",
+    "Department": "Support"
   }
 ]

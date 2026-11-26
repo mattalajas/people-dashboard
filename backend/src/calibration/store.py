@@ -26,10 +26,18 @@ def load_collection(name: str) -> list[dict[str, Any]]:
 
 
 def engineering_cycle() -> Group:
+    return _cycle("cycle-2026")
+
+
+def division_cycle() -> Group:
+    return _cycle("cycle-division")
+
+
+def _cycle(cycle_id: str) -> Group:
     cycles = load_collection("cycles")
-    root_id = str(cycles[0]["root_group_id"])
+    cycle = next(item for item in cycles if item["_id"] == cycle_id)
     groups = load_collection("groups")
-    return _group(root_id, groups, _people(), _summaries())
+    return _group(str(cycle["root_group_id"]), groups, _people(), _summaries())
 
 
 def _people() -> dict[str, Person]:

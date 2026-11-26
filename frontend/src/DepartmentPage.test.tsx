@@ -3,7 +3,7 @@ import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
 import { App } from "./App";
 import { DepartmentPage } from "./DepartmentPage";
-import { departmentView } from "./departmentFixture";
+import { departmentView, divisionView, productView } from "./departmentFixture";
 
 function renderPage() {
   return render(<DepartmentPage view={departmentView} />);
@@ -165,6 +165,71 @@ describe("department page", () => {
     expect(within(research).queryByRole("region", { name: "Research AI summary" })).not.toBeInTheDocument();
     expect(within(research).getAllByRole("article", { name: "Person line" })).toHaveLength(3);
     expect(within(research).getByText("Found the failed assumption")).toBeInTheDocument();
+  });
+
+  it("shows an Engineering session change on Design's person line", async () => {
+    const user = userEvent.setup();
+    renderPage();
+
+    const design = screen.getByRole("region", { name: "Design" });
+    const line = within(design).getByText("Raised the visual bar").closest("article");
+    expect(line).not.toBeNull();
+    const person = line as HTMLElement;
+    expect(labeledValue(person, "Culture rating")).toHaveTextContent("Exceeding");
+    expect(within(person).queryByText("The critique holds up across Engineering")).not.toBeInTheDocument();
+
+    await user.click(within(person).getByRole("button", { name: "Show rating changes" }));
+
+    const history = within(person).getByRole("region", { name: "Rating changes" });
+    expect(within(history).getByText("Culture")).toBeInTheDocument();
+    expect(within(history).getByText("Strong")).toBeInTheDocument();
+    expect(within(history).getByText("Exceeding")).toBeInTheDocument();
+    expect(within(history).getByText("The critique holds up across Engineering")).toBeInTheDocument();
+    expect(within(history).getByText("Engineering")).toBeInTheDocument();
+    expect(
+      within(screen.getByRole("region", { name: "Engineering" })).queryByText(
+        "The critique holds up across Engineering",
+      ),
+    ).not.toBeInTheDocument();
+    expect(labeledValue(person, "Culture rating")).toHaveTextContent("Exceeding");
+    expect(labeledValue(person, "Culture rating")).not.toHaveTextContent("Strong");
+  });
+
+  it("hides a department still under five and carries those ratings to the parent", () => {
+    render(<DepartmentPage view={divisionView} />);
+
+    const division = screen.getByRole("region", { name: "Division" });
+    expect(within(division).getByText("Open")).toBeInTheDocument();
+    expect(within(division).queryByRole("list", { name: "Division person lines" })).not.toBeInTheDocument();
+    const spread = within(division).getByRole("list", { name: "Division spread" });
+    expect(within(spread).getByText("Strong").parentElement).toHaveTextContent("8");
+    expect(within(spread).getByText("Developing").parentElement).toHaveTextContent("4");
+
+    const product = screen.getByRole("region", { name: "Product" });
+    expect(within(product).getByText("Closed")).toBeInTheDocument();
+    expect(within(product).queryByRole("list", { name: "Product spread" })).not.toBeInTheDocument();
+    expect(within(product).queryByRole("list", { name: "Product person lines" })).not.toBeInTheDocument();
+
+    const support = screen.getByRole("region", { name: "Support" });
+    expect(within(support).queryByRole("list", { name: "Support spread" })).not.toBeInTheDocument();
+    expect(within(support).getAllByRole("article", { name: "Person line" })).toHaveLength(2);
+  });
+
+  it("shows the hidden children on their own page while the department stays under five", () => {
+    render(<DepartmentPage view={productView} />);
+
+    const product = screen.getByRole("region", { name: "Product" });
+    expect(within(product).queryByRole("list", { name: "Product spread" })).not.toBeInTheDocument();
+    expect(within(product).queryByRole("list", { name: "Product person lines" })).not.toBeInTheDocument();
+
+    const north = screen.getByRole("region", { name: "North" });
+    expect(within(north).queryByRole("list", { name: "North spread" })).not.toBeInTheDocument();
+    expect(within(north).getAllByRole("article", { name: "Person line" })).toHaveLength(2);
+    expect(within(north).getByText("Shipped the shared kit")).toBeInTheDocument();
+
+    const south = screen.getByRole("region", { name: "South" });
+    expect(within(south).queryByRole("list", { name: "South spread" })).not.toBeInTheDocument();
+    expect(within(south).getAllByRole("article", { name: "Person line" })).toHaveLength(2);
   });
 
   it("loads the department from the api", async () => {

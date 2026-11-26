@@ -168,7 +168,15 @@ export const departmentView: DepartmentView = {
       flagged: true,
       aiSummary: designSummary,
       personLines: [
-        line("design-1", "Exceeding", "Exceeding", "Raised the visual bar", "Held the critique standard"),
+        line("design-1", "Exceeding", "Exceeding", "Raised the visual bar", "Held the critique standard", [
+          {
+            axis: "Culture",
+            previous: "Strong",
+            new: "Exceeding",
+            reason: "The critique holds up across Engineering",
+            session: "Engineering",
+          },
+        ]),
         line("design-2", "Exceptional", "Strong", "Redrew the core flows", "Set the tone of the critique"),
         line("design-3", "Strong", "Developing", "Shipped the component kit", "Still learning to invite dissent"),
       ],
@@ -183,6 +191,81 @@ export const departmentView: DepartmentView = {
         line("research-1", "Exceeding", "Strong", "Found the failed assumption", "Wrote up the disagreement"),
         line("research-2", "Developing", "Developing", "Wrote the study notes", "Kept the interviews kind"),
         line("research-3", "Strong", "Below", "Repeated the measurement", "Skipped the hard question"),
+      ],
+    },
+  ],
+};
+
+const divisionSpread: SpreadBand[] = [
+  { band: "Below", count: 0 },
+  { band: "Developing", count: 4 },
+  { band: "Strong", count: 8 },
+  { band: "Exceeding", count: 0 },
+  { band: "Exceptional", count: 0 },
+];
+
+export const divisionView: DepartmentView = {
+  department: {
+    name: "Division",
+    session: "open",
+    spread: divisionSpread,
+    flagged: false,
+    aiSummary: null,
+    personLines: [],
+  },
+  groups: [
+    {
+      name: "Product",
+      session: "closed",
+      spread: null,
+      flagged: false,
+      aiSummary: null,
+      personLines: [],
+    },
+    {
+      name: "Support",
+      session: "closed",
+      spread: null,
+      flagged: false,
+      aiSummary: null,
+      personLines: [
+        line("support-1", "Developing", "Developing", "Answered the queue", "Kept the notes current"),
+        line("support-2", "Developing", "Developing", "Routed the request", "Followed up the next day"),
+      ],
+    },
+  ],
+};
+
+export const productView: DepartmentView = {
+  department: {
+    name: "Product",
+    session: "closed",
+    spread: null,
+    flagged: false,
+    aiSummary: null,
+    personLines: [],
+  },
+  groups: [
+    {
+      name: "North",
+      session: "closed",
+      spread: null,
+      flagged: false,
+      aiSummary: null,
+      personLines: [
+        line("north-1", "Strong", "Strong", "Shipped the shared kit", "Kept the critiques kind"),
+        line("north-2", "Strong", "Strong", "Closed the handoff gaps", "Wrote the decision down"),
+      ],
+    },
+    {
+      name: "South",
+      session: "closed",
+      spread: null,
+      flagged: false,
+      aiSummary: null,
+      personLines: [
+        line("south-1", "Strong", "Strong", "Held the release date", "Asked before changing course"),
+        line("south-2", "Strong", "Strong", "Simplified the settings", "Shared credit for the launch"),
       ],
     },
   ],

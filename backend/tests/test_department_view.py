@@ -4,7 +4,7 @@ import urllib.error
 import urllib.request
 
 from calibration.api import serve
-from calibration.store import engineering_cycle
+from calibration.store import division_cycle, engineering_cycle
 from calibration.model import Band, Group, Person, SelfReview, SessionState
 from calibration.view import department_view_json
 
@@ -121,6 +121,72 @@ def test_api_serves_the_department_and_refuses_writes() -> None:
     finally:
         server.shutdown()
         thread.join(timeout=2)
+
+
+def test_engineering_histogram_is_only_the_hidden_teams() -> None:
+    view = department_view_json(engineering_cycle())
+    by_name = {group["name"]: group for group in view["groups"]}
+    department = view["department"]
+
+    assert department["personLines"] == []
+    assert department["flagged"] is False
+    assert department["spread"] is not None
+    assert sum(band["count"] for band in department["spread"]) == 12
+    assert sum(band["count"] for band in by_name["Platform"]["spread"]) == 16
+    assert sum(band["count"] for band in by_name["Infra"]["spread"]) == 12
+    assert by_name["Design"]["spread"] is None
+    assert by_name["Research"]["spread"] is None
+
+
+def test_engineering_session_change_appears_on_the_design_person_line() -> None:
+    view = department_view_json(engineering_cycle())
+    design = next(group for group in view["groups"] if group["name"] == "Design")
+    line = next(person for person in design["personLines"] if person["id"] == "design-1")
+
+    assert line["craftRating"] == "Exceeding"
+    assert line["cultureRating"] == "Exceeding"
+    assert line["ratingChanges"] == [
+        {
+            "axis": "Culture",
+            "previous": "Strong",
+            "new": "Exceeding",
+            "reason": "The critique holds up across Engineering",
+            "session": "Engineering",
+        }
+    ]
+    assert view["department"]["personLines"] == []
+
+
+def test_a_department_still_under_five_draws_no_histogram_and_rolls_onward() -> None:
+    division = department_view_json(division_cycle())
+    department = division["department"]
+    by_name = {group["name"]: group for group in division["groups"]}
+
+    assert department["name"] == "Division"
+    assert department["personLines"] == []
+    assert department["spread"] == [
+        {"band": "Below", "count": 0},
+        {"band": "Developing", "count": 4},
+        {"band": "Strong", "count": 8},
+        {"band": "Exceeding", "count": 0},
+        {"band": "Exceptional", "count": 0},
+    ]
+    assert by_name["Product"]["spread"] is None
+    assert by_name["Product"]["personLines"] == []
+    assert by_name["Support"]["spread"] is None
+
+    product = department_view_json(next(group for group in division_cycle().children if group.name == "Product"))
+    product_groups = {group["name"]: group for group in product["groups"]}
+    assert product["department"]["spread"] is None
+    assert product["department"]["personLines"] == []
+    assert product_groups["North"]["spread"] is None
+    assert len(product_groups["North"]["personLines"]) == 2
+    assert product_groups["South"]["spread"] is None
+    assert len(product_groups["South"]["personLines"]) == 2
+
+    engineering = department_view_json(engineering_cycle())["department"]
+    assert engineering["spread"] is not None
+    assert sum(band["count"] for band in engineering["spread"]) == 12
 
 
 def test_platform_is_flagged_and_infra_is_not() -> None:

@@ -158,5 +158,53 @@
     "Culture_review": "Skipped the hard question in their own words",
     "Whats_next_review": "Next step after Repeated the measurement",
     "Timestamps": "2026-03-01T09:00:00Z"
+  },
+  {
+    "_id": "user-review-north-1",
+    "user_id": "north-1",
+    "Craft_review": "Shipped the shared kit in their own words",
+    "Culture_review": "Kept the critiques kind in their own words",
+    "Whats_next_review": "Next step after Shipped the shared kit",
+    "Timestamps": "2026-03-01T09:00:00Z"
+  },
+  {
+    "_id": "user-review-north-2",
+    "user_id": "north-2",
+    "Craft_review": "Closed the handoff gaps in their own words",
+    "Culture_review": "Wrote the decision down in their own words",
+    "Whats_next_review": "Next step after Closed the handoff gaps",
+    "Timestamps": "2026-03-01T09:00:00Z"
+  },
+  {
+    "_id": "user-review-south-1",
+    "user_id": "south-1",
+    "Craft_review": "Held the release date in their own words",
+    "Culture_review": "Asked before changing course in their own words",
+    "Whats_next_review": "Next step after Held the release date",
+    "Timestamps": "2026-03-01T09:00:00Z"
+  },
+  {
+    "_id": "user-review-south-2",
+    "user_id": "south-2",
+    "Craft_review": "Simplified the settings in their own words",
+    "Culture_review": "Shared credit for the launch in their own words",
+    "Whats_next_review": "Next step after Simplified the settings",
+    "Timestamps": "2026-03-01T09:00:00Z"
+  },
+  {
+    "_id": "user-review-support-1",
+    "user_id": "support-1",
+    "Craft_review": "Answered the queue in their own words",
+    "Culture_review": "Kept the notes current in their own words",
+    "Whats_next_review": "Next step after Answered the queue",
+    "Timestamps": "2026-03-01T09:00:00Z"
+  },
+  {
+    "_id": "user-review-support-2",
+    "user_id": "support-2",
+    "Craft_review": "Routed the request in their own words",
+    "Culture_review": "Followed up the next day in their own words",
+    "Whats_next_review": "Next step after Routed the request",
+    "Timestamps": "2026-03-01T09:00:00Z"
   }
 ]

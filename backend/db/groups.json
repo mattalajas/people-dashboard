@@ -62,5 +62,54 @@
       "research-2",
       "research-3"
     ]
+  },
+  {
+    "_id": "group-north",
+    "name": "North",
+    "session": "closed",
+    "parent_id": "group-product",
+    "manager_id": "manager-north",
+    "member_ids": [
+      "north-1",
+      "north-2"
+    ]
+  },
+  {
+    "_id": "group-south",
+    "name": "South",
+    "session": "closed",
+    "parent_id": "group-product",
+    "manager_id": "manager-south",
+    "member_ids": [
+      "south-1",
+      "south-2"
+    ]
+  },
+  {
+    "_id": "group-support",
+    "name": "Support",
+    "session": "closed",
+    "parent_id": "group-division",
+    "manager_id": "manager-support",
+    "member_ids": [
+      "support-1",
+      "support-2"
+    ]
+  },
+  {
+    "_id": "group-division",
+    "name": "Division",
+    "session": "open",
+    "parent_id": null,
+    "manager_id": "manager-division",
+    "member_ids": []
+  },
+  {
+    "_id": "group-product",
+    "name": "Product",
+    "session": "closed",
+    "parent_id": "group-division",
+    "manager_id": "manager-product",
+    "member_ids": []
   }
 ]

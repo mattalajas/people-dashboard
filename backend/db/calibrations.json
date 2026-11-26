@@ -112,5 +112,62 @@
       }
     ],
     "Ai_review": null
+  },
+  {
+    "_id": "calibration-north",
+    "manager_id": "manager-north",
+    "group_reviews": [
+      {
+        "User_review_id": "user-review-north-1",
+        "Manager_review_id": "manager-review-north-1"
+      },
+      {
+        "User_review_id": "user-review-north-2",
+        "Manager_review_id": "manager-review-north-2"
+      }
+    ],
+    "Ai_review": null
+  },
+  {
+    "_id": "calibration-south",
+    "manager_id": "manager-south",
+    "group_reviews": [
+      {
+        "User_review_id": "user-review-south-1",
+        "Manager_review_id": "manager-review-south-1"
+      },
+      {
+        "User_review_id": "user-review-south-2",
+        "Manager_review_id": "manager-review-south-2"
+      }
+    ],
+    "Ai_review": null
+  },
+  {
+    "_id": "calibration-support",
+    "manager_id": "manager-support",
+    "group_reviews": [
+      {
+        "User_review_id": "user-review-support-1",
+        "Manager_review_id": "manager-review-support-1"
+      },
+      {
+        "User_review_id": "user-review-support-2",
+        "Manager_review_id": "manager-review-support-2"
+      }
+    ],
+    "Ai_review": null
+  },
+  {
+    "_id": "calibration-division",
+    "manager_id": "manager-division",
+    "group_reviews": [],
+    "Ai_review": null
+  },
+  {
+    "_id": "calibration-product",
+    "manager_id": "manager-product",
+    "group_reviews": [],
+    "Ai_review": null
   }
 ]

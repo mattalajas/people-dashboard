@@ -193,7 +193,15 @@
     "Culture_score_justification": "Held the critique standard",
     "Locked": true,
     "Timestamps": "2026-03-01T09:00:00Z",
-    "Calibration_history": []
+    "Calibration_history": [
+      {
+        "Craft_score": "Exceeding",
+        "Culture_score": "Strong",
+        "Justification": "The critique holds up across Engineering",
+        "Timestamps": "2026-03-01T08:30:00Z",
+        "Session": "Engineering"
+      }
+    ]
   },
   {
     "_id": "manager-review-design-2",
@@ -251,6 +259,78 @@
     "Culture_score": "Below",
     "Craft_score_justification": "Repeated the measurement",
     "Culture_score_justification": "Skipped the hard question",
+    "Locked": true,
+    "Timestamps": "2026-03-01T09:00:00Z",
+    "Calibration_history": []
+  },
+  {
+    "_id": "manager-review-north-1",
+    "user_id": "north-1",
+    "manager_id": "manager-north",
+    "Craft_score": "Strong",
+    "Culture_score": "Strong",
+    "Craft_score_justification": "Shipped the shared kit",
+    "Culture_score_justification": "Kept the critiques kind",
+    "Locked": true,
+    "Timestamps": "2026-03-01T09:00:00Z",
+    "Calibration_history": []
+  },
+  {
+    "_id": "manager-review-north-2",
+    "user_id": "north-2",
+    "manager_id": "manager-north",
+    "Craft_score": "Strong",
+    "Culture_score": "Strong",
+    "Craft_score_justification": "Closed the handoff gaps",
+    "Culture_score_justification": "Wrote the decision down",
+    "Locked": true,
+    "Timestamps": "2026-03-01T09:00:00Z",
+    "Calibration_history": []
+  },
+  {
+    "_id": "manager-review-south-1",
+    "user_id": "south-1",
+    "manager_id": "manager-south",
+    "Craft_score": "Strong",
+    "Culture_score": "Strong",
+    "Craft_score_justification": "Held the release date",
+    "Culture_score_justification": "Asked before changing course",
+    "Locked": true,
+    "Timestamps": "2026-03-01T09:00:00Z",
+    "Calibration_history": []
+  },
+  {
+    "_id": "manager-review-south-2",
+    "user_id": "south-2",
+    "manager_id": "manager-south",
+    "Craft_score": "Strong",
+    "Culture_score": "Strong",
+    "Craft_score_justification": "Simplified the settings",
+    "Culture_score_justification": "Shared credit for the launch",
+    "Locked": true,
+    "Timestamps": "2026-03-01T09:00:00Z",
+    "Calibration_history": []
+  },
+  {
+    "_id": "manager-review-support-1",
+    "user_id": "support-1",
+    "manager_id": "manager-support",
+    "Craft_score": "Developing",
+    "Culture_score": "Developing",
+    "Craft_score_justification": "Answered the queue",
+    "Culture_score_justification": "Kept the notes current",
+    "Locked": true,
+    "Timestamps": "2026-03-01T09:00:00Z",
+    "Calibration_history": []
+  },
+  {
+    "_id": "manager-review-support-2",
+    "user_id": "support-2",
+    "manager_id": "manager-support",
+    "Craft_score": "Developing",
+    "Culture_score": "Developing",
+    "Craft_score_justification": "Routed the request",
+    "Culture_score_justification": "Followed up the next day",
     "Locked": true,
     "Timestamps": "2026-03-01T09:00:00Z",
     "Calibration_history": []
