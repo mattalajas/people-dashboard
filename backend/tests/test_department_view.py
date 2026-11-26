@@ -68,7 +68,7 @@ def test_person_lines_have_no_name_and_keep_current_ratings() -> None:
         {
             "previousCraft": "Developing",
             "previousCulture": "Strong",
-            "reason": "Scope grew",
+            "reason": "Scope grew once the rollout covered the legacy clients as well as the new path. The work I had at Developing is now the standard the rest of the group is following.",
             "session": "Platform",
             "changedAt": "2026-03-01T08:00:00Z",
             "changedBy": "Avery Cole",
@@ -80,15 +80,20 @@ def test_person_lines_have_no_name_and_keep_current_ratings() -> None:
         {
             "previousCraft": "Strong",
             "previousCulture": "Strong",
-            "reason": "The technical direction holds up",
+            "reason": "The technical direction holds up under the questions from Infra and Design. I am moving craft from Strong to Exceeding on that evidence.",
             "session": "Platform",
             "changedAt": "2026-03-01T08:00:00Z",
             "changedBy": "Avery Cole",
         }
     ]
     assert lines[2]["ratingChanges"] == []
-    assert lines[2]["craftJustification"] == "Missed the design bar"
-    assert lines[2]["selfReview"]["whatsNext"] == "Next step after Missed the design bar"
+    assert lines[2]["craftJustification"] == (
+        "Missed the design bar on the settings work. The flows shipped, "
+        "but reviewers had to redraw them before a customer could follow them."
+    )
+    assert lines[2]["selfReview"]["whatsNext"] == (
+        "I will bring one sketch to critique before I build, and I will say the concern in the room."
+    )
 
 
 def test_api_serves_the_department_and_refuses_writes() -> None:
@@ -159,7 +164,7 @@ def test_infra_craft_rose_from_strong_to_exceeding() -> None:
         {
             "previousCraft": "Strong",
             "previousCulture": "Strong",
-            "reason": "The shorter incident timeline holds up",
+            "reason": "The shorter incident timeline holds up across the last three pages, not just the one we looked at in the room. I am moving craft from Strong to Exceeding.",
             "session": "Infra",
             "changedAt": "2026-03-01T08:15:00Z",
             "changedBy": "Riley Shah",
@@ -178,7 +183,7 @@ def test_engineering_session_change_appears_on_the_design_person_line() -> None:
         {
             "previousCraft": "Exceeding",
             "previousCulture": "Strong",
-            "reason": "The critique holds up across Engineering",
+            "reason": "The critique holds up across Engineering, not only inside Design. I am moving culture from Strong to Exceeding on that.",
             "session": "Engineering",
             "changedAt": "2026-03-01T08:30:00Z",
             "changedBy": "Jordan Hale",

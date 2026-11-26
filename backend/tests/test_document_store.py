@@ -23,7 +23,10 @@ def test_documents_follow_the_proposed_collections() -> None:
         "Whats_next_review",
         "Timestamps",
     }
-    assert review["Craft_review"] == "Took on the rollout in their own words"
+    assert review["Craft_review"] == (
+        "I took the rollout when the migration date slipped, "
+        "and I stayed with the cutover so the existing clients never saw a break."
+    )
 
     assessment = next(item for item in manager_reviews if item["user_id"] == "person-1")
     assert set(assessment) == {
@@ -49,7 +52,7 @@ def test_documents_follow_the_proposed_collections() -> None:
     }
     assert history[0]["Craft_score"] == "Developing"
     assert history[0]["Culture_score"] == "Strong"
-    assert history[0]["Justification"] == "Scope grew"
+    assert history[0]["Justification"].startswith("Scope grew")
     assert history[0]["Session"] == "Platform"
 
     platform = next(item for item in calibrations if item["_id"] == "calibration-platform")

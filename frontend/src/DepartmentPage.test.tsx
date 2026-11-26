@@ -10,7 +10,7 @@ function renderPage() {
 }
 
 function personLine(justification: string) {
-  const match = screen.getByText(justification).closest("article");
+  const match = screen.getAllByText(justification, { exact: false })[0]?.closest("article");
   if (!match) {
     throw new Error(`No person line contains ${justification}`);
   }
@@ -91,9 +91,9 @@ describe("department page", () => {
     expect(manager).toHaveTextContent("Justification: Steadied the team rituals");
 
     const selfReview = within(line).getByRole("region", { name: "Self review" });
-    expect(within(selfReview).getByText("Took on the rollout in their own words")).toBeInTheDocument();
-    expect(within(selfReview).getByText("Steadied the team rituals in their own words")).toBeInTheDocument();
-    expect(within(selfReview).getByText("Next step after Took on the rollout")).toBeInTheDocument();
+    expect(within(selfReview).getByText(/I took the rollout when the migration date slipped/)).toBeInTheDocument();
+    expect(within(selfReview).getByText(/I put the weekly review back on the calendar/)).toBeInTheDocument();
+    expect(within(selfReview).getByText(/hand the next cutover to someone else/)).toBeInTheDocument();
     expect(within(line).queryByText("Scope grew")).not.toBeInTheDocument();
   });
 
@@ -137,7 +137,7 @@ describe("department page", () => {
     const second = personLine("Set the technical direction");
     await user.click(within(second).getByRole("button", { name: "Show rating changes" }));
 
-    expect(screen.getByText("Scope grew")).toBeInTheDocument();
+    expect(screen.getByText(/Scope grew/)).toBeInTheDocument();
     const secondHistory = within(second).getByRole("region", { name: "Rating changes" });
     expect(secondHistory).toHaveTextContent("Craft rating: Strong");
     expect(secondHistory).toHaveTextContent("Culture rating: Strong");
@@ -169,8 +169,8 @@ describe("department page", () => {
     await user.click(within(lines[1]).getByRole("button", { name: "Show review" }));
     await user.click(within(lines[0]).getByRole("button", { name: "Show rating changes" }));
     await user.click(within(lines[1]).getByRole("button", { name: "Show rating changes" }));
-    expect(within(lines[0]).getByText("Scope grew")).toBeInTheDocument();
-    expect(within(lines[1]).getByText("The technical direction holds up")).toBeInTheDocument();
+    expect(within(lines[0]).getByText(/Scope grew/)).toBeInTheDocument();
+    expect(within(lines[1]).getByText(/The technical direction holds up/)).toBeInTheDocument();
 
     await user.click(within(lines[0]).getByRole("button", { name: "Show previous results" }));
     await user.click(within(lines[1]).getByRole("button", { name: "Show previous results" }));
@@ -184,8 +184,8 @@ describe("department page", () => {
     expect(within(platform).getByText("8 people").closest("p")).toHaveTextContent(
       "Showing results before the changes for Employee A and Employee B.",
     );
-    expect(within(lines[0]).getByText("Scope grew")).toBeInTheDocument();
-    expect(within(lines[1]).getByText("The technical direction holds up")).toBeInTheDocument();
+    expect(within(lines[0]).getByText(/Scope grew/)).toBeInTheDocument();
+    expect(within(lines[1]).getByText(/The technical direction holds up/)).toBeInTheDocument();
 
     const summary = within(screen.getByRole("region", { name: "Engineering" })).getByRole("list", {
       name: "Engineering groups",
@@ -294,7 +294,7 @@ describe("department page", () => {
     await user.click(screen.getByRole("button", { name: "Design" }));
     const design = screen.getByRole("region", { name: "Design" });
     await user.click(within(design).getAllByRole("button", { name: "Show review" })[0]);
-    const line = within(design).getByText("Raised the visual bar").closest("article");
+    const line = within(design).getByText(/Raised the visual bar/).closest("article");
     expect(line).not.toBeNull();
     const person = line as HTMLElement;
     expect(within(person).getByRole("region", { name: "Manager review" })).toHaveTextContent(
@@ -367,7 +367,7 @@ describe("department page", () => {
     expect(within(north).queryByRole("list", { name: "North spread" })).not.toBeInTheDocument();
     expect(within(north).getAllByRole("article", { name: "Person line" })).toHaveLength(2);
     await user.click(within(north).getAllByRole("button", { name: "Show review" })[0]);
-    expect(within(north).getByText("Shipped the shared kit")).toBeInTheDocument();
+    expect(within(north).getByText(/Shipped the shared kit/)).toBeInTheDocument();
 
     await user.click(screen.getByRole("button", { name: "South" }));
     expect(screen.queryByRole("region", { name: "North" })).not.toBeInTheDocument();
@@ -389,9 +389,9 @@ describe("department page", () => {
     expect(within(platform).getByRole("list", { name: "Platform spread" })).toBeInTheDocument();
     await user.click(within(platform).getByRole("button", { name: "Reviews" }));
     await user.click(within(platform).getAllByRole("button", { name: "Show review" })[0]);
-    expect(within(platform).getByText("Took on the rollout")).toBeInTheDocument();
+    expect(within(platform).getByText(/Took on the rollout/)).toBeInTheDocument();
     await user.click(within(platform).getByRole("button", { name: "Hide review" }));
-    expect(within(platform).queryByText("Took on the rollout")).not.toBeInTheDocument();
+    expect(within(platform).queryByText(/Took on the rollout/)).not.toBeInTheDocument();
   });
 
   it("loads the department from the api", async () => {

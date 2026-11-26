@@ -5,15 +5,15 @@
     "manager_id": "manager-platform",
     "Craft_score": "Exceeding",
     "Culture_score": "Strong",
-    "Craft_score_justification": "Took on the rollout",
-    "Culture_score_justification": "Steadied the team rituals",
+    "Craft_score_justification": "Took on the rollout after the migration date slipped. They carried the cutover through the last two weekends and kept the existing clients online.",
+    "Culture_score_justification": "Steadied the team rituals by putting the weekly review back on the calendar and making sure a decision was written down before people left the room.",
     "Locked": true,
     "Timestamps": "2026-03-01T09:00:00Z",
     "Calibration_history": [
       {
         "Craft_score": "Developing",
         "Culture_score": "Strong",
-        "Justification": "Scope grew",
+        "Justification": "Scope grew once the rollout covered the legacy clients as well as the new path. The work I had at Developing is now the standard the rest of the group is following.",
         "Timestamps": "2026-03-01T08:00:00Z",
         "Session": "Platform"
       }
@@ -25,15 +25,15 @@
     "manager_id": "manager-platform",
     "Craft_score": "Exceeding",
     "Culture_score": "Strong",
-    "Craft_score_justification": "Set the technical direction",
-    "Culture_score_justification": "Made reviews useful",
+    "Craft_score_justification": "Set the technical direction for the platform rewrite, and the rest of the group is building against that plan instead of inventing a new one in each review.",
+    "Culture_score_justification": "Made reviews useful by cutting the status round and asking people to bring a decision rather than a slide.",
     "Locked": true,
     "Timestamps": "2026-03-01T09:00:00Z",
     "Calibration_history": [
       {
         "Craft_score": "Strong",
         "Culture_score": "Strong",
-        "Justification": "The technical direction holds up",
+        "Justification": "The technical direction holds up under the questions from Infra and Design. I am moving craft from Strong to Exceeding on that evidence.",
         "Timestamps": "2026-03-01T08:00:00Z",
         "Session": "Platform"
       }
@@ -45,8 +45,8 @@
     "manager_id": "manager-platform",
     "Craft_score": "Below",
     "Culture_score": "Developing",
-    "Craft_score_justification": "Missed the design bar",
-    "Culture_score_justification": "Still learning how to disagree",
+    "Craft_score_justification": "Missed the design bar on the settings work. The flows shipped, but reviewers had to redraw them before a customer could follow them.",
+    "Culture_score_justification": "Still learning how to disagree in the room. They raise the concern afterwards, which means the group has already moved on.",
     "Locked": true,
     "Timestamps": "2026-03-01T09:00:00Z",
     "Calibration_history": []
@@ -57,8 +57,8 @@
     "manager_id": "manager-platform",
     "Craft_score": "Developing",
     "Culture_score": "Developing",
-    "Craft_score_justification": "Delivered with guidance",
-    "Culture_score_justification": "Warm, still inconsistent",
+    "Craft_score_justification": "Delivered with guidance on the billing change. The work landed, and they still needed a senior engineer in the design before they could start.",
+    "Culture_score_justification": "Warm, still inconsistent in how they show up for other people's reviews. Some weeks they unblock the room, and some weeks they stay quiet until the decision is made.",
     "Locked": true,
     "Timestamps": "2026-03-01T09:00:00Z",
     "Calibration_history": []
@@ -69,8 +69,8 @@
     "manager_id": "manager-platform",
     "Craft_score": "Exceeding",
     "Culture_score": "Exceeding",
-    "Craft_score_justification": "Shipped the migration",
-    "Culture_score_justification": "Raised the critique quality",
+    "Craft_score_justification": "Shipped the migration of the account service with a rollback the on-call team actually used. It was the cleanest cutover this group has run.",
+    "Culture_score_justification": "Raised the critique quality in design review. People bring sharper questions because they know this person will ask the one that matters.",
     "Locked": true,
     "Timestamps": "2026-03-01T09:00:00Z",
     "Calibration_history": []
@@ -81,8 +81,8 @@
     "manager_id": "manager-platform",
     "Craft_score": "Exceptional",
     "Culture_score": "Exceeding",
-    "Craft_score_justification": "Redefined the platform approach",
-    "Culture_score_justification": "Reliable partner to other teams",
+    "Craft_score_justification": "Redefined the platform approach away from a shared library and toward a small set of owned services. Other teams are already building on that shape.",
+    "Culture_score_justification": "Reliable partner to other teams during the incident weeks. Infra and Support both named them as the person who made the handoff usable.",
     "Locked": true,
     "Timestamps": "2026-03-01T09:00:00Z",
     "Calibration_history": []
@@ -93,8 +93,8 @@
     "manager_id": "manager-platform",
     "Craft_score": "Strong",
     "Culture_score": "Below",
-    "Craft_score_justification": "Solid feature work",
-    "Culture_score_justification": "Avoided hard conversations",
+    "Craft_score_justification": "Solid feature work on the reporting views. The code is careful, the tests are there, and the scope stayed inside what was asked.",
+    "Culture_score_justification": "Avoided hard conversations about the slipped date. The team heard about the risk from someone else.",
     "Locked": true,
     "Timestamps": "2026-03-01T09:00:00Z",
     "Calibration_history": []
@@ -105,8 +105,8 @@
     "manager_id": "manager-platform",
     "Craft_score": "Exceeding",
     "Culture_score": "Exceptional",
-    "Craft_score_justification": "Led the incident response",
-    "Culture_score_justification": "Reset how the team gives feedback",
+    "Craft_score_justification": "Led the incident response for the authentication outage and kept a single timeline the whole department could follow. The recovery steps are now the runbook.",
+    "Culture_score_justification": "Reset how the team gives feedback. Reviews are shorter, and people leave with a decision instead of a list of opinions.",
     "Locked": true,
     "Timestamps": "2026-03-01T09:00:00Z",
     "Calibration_history": []
@@ -117,8 +117,8 @@
     "manager_id": "manager-infra",
     "Craft_score": "Strong",
     "Culture_score": "Strong",
-    "Craft_score_justification": "Kept the build green",
-    "Culture_score_justification": "Answered the on-call pages",
+    "Craft_score_justification": "Kept the build green through the quarter by fixing the flaky integration suite instead of rerunning it. The main branch is something people trust again.",
+    "Culture_score_justification": "Answered the on-call pages, including the weekend ones, and wrote down what they did so the next person was not starting from a blank channel.",
     "Locked": true,
     "Timestamps": "2026-03-01T09:00:00Z",
     "Calibration_history": []
@@ -129,8 +129,8 @@
     "manager_id": "manager-infra",
     "Craft_score": "Strong",
     "Culture_score": "Developing",
-    "Craft_score_justification": "Documented the deploy path",
-    "Culture_score_justification": "Shared the on-call load",
+    "Craft_score_justification": "Documented the deploy path so a new engineer can ship without sitting beside them. The doc matches what the pipeline actually does.",
+    "Culture_score_justification": "Shared the on-call load for two rotations and then dropped the third. The team is still uneven, and this is the part that needs to settle.",
     "Locked": true,
     "Timestamps": "2026-03-01T09:00:00Z",
     "Calibration_history": []
@@ -141,8 +141,8 @@
     "manager_id": "manager-infra",
     "Craft_score": "Developing",
     "Culture_score": "Strong",
-    "Craft_score_justification": "Mapped the service owners",
-    "Culture_score_justification": "Brought incidents to a close",
+    "Craft_score_justification": "Mapped the service owners after the outage showed us we did not know who to call. The map is up, and a few of the names are still wrong.",
+    "Culture_score_justification": "Brought incidents to a close instead of leaving them in a long channel. People know an incident is over because this person says so.",
     "Locked": true,
     "Timestamps": "2026-03-01T09:00:00Z",
     "Calibration_history": []
@@ -153,15 +153,15 @@
     "manager_id": "manager-infra",
     "Craft_score": "Exceeding",
     "Culture_score": "Strong",
-    "Craft_score_justification": "Shortened the incident timeline",
-    "Culture_score_justification": "Stayed calm in the channel",
+    "Craft_score_justification": "Shortened the incident timeline from a drifting thread into a single page with owners and times. That page is the standard the rest of Infra is now copying.",
+    "Culture_score_justification": "Stayed calm in the channel when the pages were coming in faster than we could read them. The tone of the response followed theirs.",
     "Locked": true,
     "Timestamps": "2026-03-01T09:00:00Z",
     "Calibration_history": [
       {
         "Craft_score": "Strong",
         "Culture_score": "Strong",
-        "Justification": "The shorter incident timeline holds up",
+        "Justification": "The shorter incident timeline holds up across the last three pages, not just the one we looked at in the room. I am moving craft from Strong to Exceeding.",
         "Timestamps": "2026-03-01T08:15:00Z",
         "Session": "Infra"
       }
@@ -173,8 +173,8 @@
     "manager_id": "manager-infra",
     "Craft_score": "Strong",
     "Culture_score": "Exceeding",
-    "Craft_score_justification": "Paired across the services",
-    "Culture_score_justification": "Made the handoff clear",
+    "Craft_score_justification": "Paired across the services during the authentication work so Platform was not debugging our side alone. The fixes landed in both codebases.",
+    "Culture_score_justification": "Made the handoff clear between Infra and Support. The next team can see what was tried and what is still open.",
     "Locked": true,
     "Timestamps": "2026-03-01T09:00:00Z",
     "Calibration_history": []
@@ -185,8 +185,8 @@
     "manager_id": "manager-infra",
     "Craft_score": "Developing",
     "Culture_score": "Developing",
-    "Craft_score_justification": "Clarified the ownership map",
-    "Culture_score_justification": "Asked for help sooner",
+    "Craft_score_justification": "Clarified the ownership map for the two services nobody wanted. The map is a start, and they still need help deciding what to do with the gaps.",
+    "Culture_score_justification": "Asked for help sooner than they did last cycle, which is the change I wanted to see. They still wait too long when the page is already noisy.",
     "Locked": true,
     "Timestamps": "2026-03-01T09:00:00Z",
     "Calibration_history": []
@@ -197,15 +197,15 @@
     "manager_id": "manager-design",
     "Craft_score": "Exceeding",
     "Culture_score": "Exceeding",
-    "Craft_score_justification": "Raised the visual bar",
-    "Culture_score_justification": "Held the critique standard",
+    "Craft_score_justification": "Raised the visual bar on the core product screens. The critique is no longer about taste; this work is the reference the rest of Engineering is measured against.",
+    "Culture_score_justification": "Held the critique standard when it would have been easier to let a weak flow through. People prepare differently because they know the bar will be applied.",
     "Locked": true,
     "Timestamps": "2026-03-01T09:00:00Z",
     "Calibration_history": [
       {
         "Craft_score": "Exceeding",
         "Culture_score": "Strong",
-        "Justification": "The critique holds up across Engineering",
+        "Justification": "The critique holds up across Engineering, not only inside Design. I am moving culture from Strong to Exceeding on that.",
         "Timestamps": "2026-03-01T08:30:00Z",
         "Session": "Engineering"
       }
@@ -217,8 +217,8 @@
     "manager_id": "manager-design",
     "Craft_score": "Exceptional",
     "Culture_score": "Strong",
-    "Craft_score_justification": "Redrew the core flows",
-    "Culture_score_justification": "Set the tone of the critique",
+    "Craft_score_justification": "Redrew the core flows after the research readout, and the new paths are ones a customer can finish without a guide. This is the strongest design work in the department.",
+    "Culture_score_justification": "Set the tone of the critique by going first and being specific. The room is kinder and sharper because of how they start.",
     "Locked": true,
     "Timestamps": "2026-03-01T09:00:00Z",
     "Calibration_history": []
@@ -229,8 +229,8 @@
     "manager_id": "manager-design",
     "Craft_score": "Strong",
     "Culture_score": "Developing",
-    "Craft_score_justification": "Shipped the component kit",
-    "Culture_score_justification": "Still learning to invite dissent",
+    "Craft_score_justification": "Shipped the component kit, and the product teams are actually using it. The documentation is good enough that people do not have to ask for a walkthrough.",
+    "Culture_score_justification": "Still learning to invite dissent in critique. They defend the work before they have heard the concern.",
     "Locked": true,
     "Timestamps": "2026-03-01T09:00:00Z",
     "Calibration_history": []
@@ -241,8 +241,8 @@
     "manager_id": "manager-research",
     "Craft_score": "Exceeding",
     "Culture_score": "Strong",
-    "Craft_score_justification": "Found the failed assumption",
-    "Culture_score_justification": "Wrote up the disagreement",
+    "Craft_score_justification": "Found the failed assumption behind the onboarding funnel and brought the evidence in before the build was locked. That saved a quarter of work.",
+    "Culture_score_justification": "Wrote up the disagreement with the product plan in a way the team could act on. The note was direct, and it named what would have to change.",
     "Locked": true,
     "Timestamps": "2026-03-01T09:00:00Z",
     "Calibration_history": []
@@ -253,8 +253,8 @@
     "manager_id": "manager-research",
     "Craft_score": "Developing",
     "Culture_score": "Developing",
-    "Craft_score_justification": "Wrote the study notes",
-    "Culture_score_justification": "Kept the interviews kind",
+    "Craft_score_justification": "Wrote the study notes, and they are faithful to what people said. The synthesis is still thin, which is why this stays at Developing.",
+    "Culture_score_justification": "Kept the interviews kind. Participants were comfortable, and the harder follow-up questions were often left for later.",
     "Locked": true,
     "Timestamps": "2026-03-01T09:00:00Z",
     "Calibration_history": []
@@ -265,8 +265,8 @@
     "manager_id": "manager-research",
     "Craft_score": "Strong",
     "Culture_score": "Below",
-    "Craft_score_justification": "Repeated the measurement",
-    "Culture_score_justification": "Skipped the hard question",
+    "Craft_score_justification": "Repeated the measurement when the first sample was too small, and the second pass is the one the team should trust.",
+    "Culture_score_justification": "Skipped the hard question once the participant pushed back. We still do not know why people abandon the second step.",
     "Locked": true,
     "Timestamps": "2026-03-01T09:00:00Z",
     "Calibration_history": []
@@ -277,8 +277,8 @@
     "manager_id": "manager-north",
     "Craft_score": "Strong",
     "Culture_score": "Strong",
-    "Craft_score_justification": "Shipped the shared kit",
-    "Culture_score_justification": "Kept the critiques kind",
+    "Craft_score_justification": "Shipped the shared kit on the date the two squads had planned, and the handoff notes were already in the repo.",
+    "Culture_score_justification": "Kept the critiques kind without letting weak work pass. People leave the room knowing what to change.",
     "Locked": true,
     "Timestamps": "2026-03-01T09:00:00Z",
     "Calibration_history": []
@@ -289,8 +289,8 @@
     "manager_id": "manager-north",
     "Craft_score": "Strong",
     "Culture_score": "Strong",
-    "Craft_score_justification": "Closed the handoff gaps",
-    "Culture_score_justification": "Wrote the decision down",
+    "Craft_score_justification": "Closed the handoff gaps between design and engineering that had been open since last cycle. The checklist is now part of how this squad starts a build.",
+    "Culture_score_justification": "Wrote the decision down in the channel where the work happens, not in a doc nobody opens.",
     "Locked": true,
     "Timestamps": "2026-03-01T09:00:00Z",
     "Calibration_history": []
@@ -301,8 +301,8 @@
     "manager_id": "manager-south",
     "Craft_score": "Strong",
     "Culture_score": "Strong",
-    "Craft_score_justification": "Held the release date",
-    "Culture_score_justification": "Asked before changing course",
+    "Craft_score_justification": "Held the release date by cutting scope in the open instead of quietly slipping. The team knew what was out and why.",
+    "Culture_score_justification": "Asked before changing course on the settings redesign. That kept the rest of the squad from building against a plan that had already moved.",
     "Locked": true,
     "Timestamps": "2026-03-01T09:00:00Z",
     "Calibration_history": []
@@ -313,8 +313,8 @@
     "manager_id": "manager-south",
     "Craft_score": "Strong",
     "Culture_score": "Strong",
-    "Craft_score_justification": "Simplified the settings",
-    "Culture_score_justification": "Shared credit for the launch",
+    "Craft_score_justification": "Simplified the settings screens so a new customer can finish them without the help center. The reduction is the craft, and it is solid.",
+    "Culture_score_justification": "Shared credit for the launch with the people who did the unglamorous parts. The write-up named them.",
     "Locked": true,
     "Timestamps": "2026-03-01T09:00:00Z",
     "Calibration_history": []
@@ -325,8 +325,8 @@
     "manager_id": "manager-support",
     "Craft_score": "Developing",
     "Culture_score": "Developing",
-    "Craft_score_justification": "Answered the queue",
-    "Culture_score_justification": "Kept the notes current",
+    "Craft_score_justification": "Answered the queue steadily, and the harder tickets still sit until someone else picks them up. The pace is there; the judgement is still forming.",
+    "Culture_score_justification": "Kept the notes current on the tickets they closed. A colleague can see what was tried.",
     "Locked": true,
     "Timestamps": "2026-03-01T09:00:00Z",
     "Calibration_history": []
@@ -337,8 +337,8 @@
     "manager_id": "manager-support",
     "Craft_score": "Developing",
     "Culture_score": "Developing",
-    "Craft_score_justification": "Routed the request",
-    "Culture_score_justification": "Followed up the next day",
+    "Craft_score_justification": "Routed the request to the right team more often than not. A few still bounce because the first read was too fast.",
+    "Culture_score_justification": "Followed up the next day on the tickets they had promised to check. Customers are not left wondering.",
     "Locked": true,
     "Timestamps": "2026-03-01T09:00:00Z",
     "Calibration_history": []
