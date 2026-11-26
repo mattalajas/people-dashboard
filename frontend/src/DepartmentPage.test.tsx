@@ -218,6 +218,45 @@ describe("department page", () => {
     expect(within(infra).getByText("17%")).toBeInTheDocument();
   });
 
+  it("moves Infra's Exceeding+ when a Strong rating was raised to Exceeding", async () => {
+    const user = userEvent.setup();
+    renderPage();
+
+    await user.click(screen.getByRole("button", { name: "Infra" }));
+    const infra = screen.getByRole("region", { name: "Infra" });
+    const line = within(infra).getByText("Employee D").closest("article");
+    expect(line).not.toBeNull();
+    const person = line as HTMLElement;
+    expect(within(person).getByText("This history has been changed")).toBeInTheDocument();
+
+    await user.click(within(person).getByRole("button", { name: "Show review" }));
+    await user.click(within(person).getByRole("button", { name: "Show rating changes" }));
+    const history = within(person).getByRole("region", { name: "Rating changes" });
+    expect(history).toHaveTextContent("Craft rating: Strong");
+    expect(history).toHaveTextContent("Culture rating: Strong");
+    expect(history).toHaveTextContent("Justification: The shorter incident timeline holds up");
+    expect(within(history).getByText("Riley Shah · 1 Mar 2026, 08:15")).toBeInTheDocument();
+
+    const summary = within(screen.getByRole("region", { name: "Engineering" })).getByRole("list", {
+      name: "Engineering groups",
+    });
+    const infraSummary = within(summary).getByText("Infra").parentElement;
+    expect(infraSummary).toHaveTextContent("17%");
+
+    await user.click(within(history).getByRole("button", { name: "Show previous results" }));
+    const spread = within(infra).getByRole("list", { name: "Infra spread" });
+    expect(within(spread).getByText("Strong").parentElement).toHaveTextContent("7 · 58%");
+    expect(within(spread).getByText("Exceeding").parentElement).toHaveTextContent("1 · 8%");
+    expect(within(infra).getByText("8%")).toBeInTheDocument();
+    expect(within(infra).queryByText("17%")).not.toBeInTheDocument();
+    expect(infraSummary).toHaveTextContent("8%");
+    expect(infraSummary).not.toHaveTextContent("17%");
+    expect(within(infra).getByText("Showing results before the change for Employee D.")).toBeInTheDocument();
+    expect(within(person).getByRole("region", { name: "Manager review" })).toHaveTextContent(
+      "Craft rating: Exceeding",
+    );
+  });
+
   it("shows Design and Research without histograms, and only Design is flagged", async () => {
     const user = userEvent.setup();
     renderPage();

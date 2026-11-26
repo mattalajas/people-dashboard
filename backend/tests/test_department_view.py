@@ -147,6 +147,26 @@ def test_engineering_histogram_is_only_the_hidden_teams() -> None:
     assert by_name["Research"]["spread"] is None
 
 
+def test_infra_craft_rose_from_strong_to_exceeding() -> None:
+    view = department_view_json(engineering_cycle())
+    infra = next(group for group in view["groups"] if group["name"] == "Infra")
+    line = next(person for person in infra["personLines"] if person["id"] == "infra-4")
+
+    assert line["craftRating"] == "Exceeding"
+    assert line["cultureRating"] == "Strong"
+    assert infra["exceedingShare"] == 17
+    assert line["ratingChanges"] == [
+        {
+            "previousCraft": "Strong",
+            "previousCulture": "Strong",
+            "reason": "The shorter incident timeline holds up",
+            "session": "Infra",
+            "changedAt": "2026-03-01T08:15:00Z",
+            "changedBy": "Riley Shah",
+        }
+    ]
+
+
 def test_engineering_session_change_appears_on_the_design_person_line() -> None:
     view = department_view_json(engineering_cycle())
     design = next(group for group in view["groups"] if group["name"] == "Design")

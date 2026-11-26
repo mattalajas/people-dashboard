@@ -157,7 +157,15 @@
     "Culture_score_justification": "Stayed calm in the channel",
     "Locked": true,
     "Timestamps": "2026-03-01T09:00:00Z",
-    "Calibration_history": []
+    "Calibration_history": [
+      {
+        "Craft_score": "Strong",
+        "Culture_score": "Strong",
+        "Justification": "The shorter incident timeline holds up",
+        "Timestamps": "2026-03-01T08:15:00Z",
+        "Session": "Infra"
+      }
+    ]
   },
   {
     "_id": "manager-review-infra-5",

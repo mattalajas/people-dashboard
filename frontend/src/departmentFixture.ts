@@ -164,7 +164,16 @@ export const departmentView: DepartmentView = {
         line("infra-1", "Strong", "Strong", "Kept the build green", "Answered the on-call pages"),
         line("infra-2", "Strong", "Developing", "Documented the deploy path", "Shared the on-call load"),
         line("infra-3", "Developing", "Strong", "Mapped the service owners", "Brought incidents to a close"),
-        line("infra-4", "Exceeding", "Strong", "Shortened the incident timeline", "Stayed calm in the channel"),
+        line("infra-4", "Exceeding", "Strong", "Shortened the incident timeline", "Stayed calm in the channel", [
+          {
+            previousCraft: "Strong",
+            previousCulture: "Strong",
+            reason: "The shorter incident timeline holds up",
+            session: "Infra",
+            changedAt: "2026-03-01T08:15:00Z",
+            changedBy: "Riley Shah",
+          },
+        ]),
         line("infra-5", "Strong", "Exceeding", "Paired across the services", "Made the handoff clear"),
         line("infra-6", "Developing", "Developing", "Clarified the ownership map", "Asked for help sooner"),
       ],
